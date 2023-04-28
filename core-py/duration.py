@@ -37,8 +37,8 @@ def formant_freqs(signal, rate):
 
 # function measuring vowel duration
 def vowel_duration(signal, rate, lower_freq=500, upper_freq=3000, min_duration=0.1):
-    formant_freqs = formant_freqs(signal, rate)
-    indices = np.where((formant_freqs > lower_freq) & (formant_freqs < upper_freq))[0]
+    formant_frqs = formant_freqs(signal, rate)
+    indices = np.where((formant_frqs > lower_freq) & (formant_frqs < upper_freq))[0]
     silence_threshold = 0.1 * np.max(np.abs(signal))
     intervals = []
     start = None
@@ -57,7 +57,7 @@ def vowel_duration(signal, rate, lower_freq=500, upper_freq=3000, min_duration=0
 
 # use functions to measure vowels duration in WAV file
 import scipy.io.wavfile as wavfile
-rate, signal = wavfile.read("audio_file.wav") # read file
+rate, signal = wavfile.read("./data/recs/v1/subj1/homographs/1-1.wav") # read file
 intervals = vowel_duration(signal, rate) # measure vowel duration
 for interval in intervals:
     duration = (interval[1] - interval[0]) / rate
