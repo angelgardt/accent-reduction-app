@@ -8,7 +8,7 @@ BASE_FOLDER = "/Users/antonangelgardt/accent-reduction-app/data/recs/v1/subj1/ho
 file1 = "1-1.wav"
 file2 = "1-2.wav"
 
-signal, sr = librosa.load(os.path.join(BASE_FOLDER, file1), sr=None, mono=None)
+signal, sr = librosa.load(os.path.join(BASE_FOLDER, file2), sr=None, mono=None)
 
 print(sr)
 
