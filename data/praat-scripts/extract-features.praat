@@ -1,7 +1,7 @@
 
 # Form definition
 form Extract Features
-	word Subj subj0
+	word Subj subj
 	word Filename 0-0
 endform
 
@@ -26,7 +26,7 @@ select Sound 'thisSound$'
 To Intensity... 75 0.001
 
 # Create the output file and write the first line
-outputPath$ = "/Users/antonangelgardt/accent-reduction-app/data/features/" + subj$ + "/" + filename$ + "-features.csv"
+outputPath$ = "/Users/antonangelgardt/accent-reduction-app/data/features/" + subj$ + "/" + filename$ + ".csv"
 writeFileLine: "'outputPath$'", "numphoneme,phoneme,stress,duration,timef,f0,f0max,f0min,f1,f2,f3,intensity, intensitymax"
 
 
