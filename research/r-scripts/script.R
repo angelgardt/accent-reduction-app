@@ -1,19 +1,42 @@
 library(tidyverse)
 theme_set(theme_bw())
 
-folder = "../features/subj1/"
+# reading data
+folder <- "../../data/features/"
+ids <- folder |> dir()
+recs <- folder |> paste0(ids[1], "/") |> dir()
 features <- tibble()
-for (i in 1:length(dir(folder))) {
-  read.csv(paste0(folder, dir(folder)[i]), fileEncoding="UTF-16") |>
-    bind_rows(features) -> features
+
+for (id in 1:length(ids)) {
+  print(id)
+  for (rec in 1:length(recs)) {
+    print(rec)
+    paste0(folder, ids[id], "/", recs[rec]) |>
+      read.csv(fileEncoding = "UTF-16") |>
+      mutate_all(as.character) |>
+      mutate(id = ids[id],
+             rec = recs[rec],
+             stress = str_replace_all(stress, " ", "")) |>
+      drop_na() |>
+      bind_rows(features) -> features
+  }
 }
 
 str(features)
 
 features |>
+  mutate_at(vars("duration",
+                 "timef",
+                 "f0",
+                 "f0max",
+                 "f0min",
+                 "f1",
+                 "f2",
+                 "f3",
+                 "intensity",
+                 "intensitymax"), as.numeric) |>
   filter(stress %in% 1:3) |>
-  mutate(stress = factor(stress, ordered = TRUE, levels = 1:3))-> vowels
-
+  mutate(stress = factor(stress, ordered = TRUE, levels = 1:3)) -> vowels
 
 # features |> filter(phoneme == "əᶦ")
 
@@ -36,4 +59,3 @@ vowels |>
   scale_y_reverse(position="right") +
   facet_wrap(~ stress) +
   guides(color = "none")
-
