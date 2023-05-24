@@ -16,7 +16,8 @@ for (id in 1:length(ids)) {
       mutate_all(as.character) |>
       mutate(id = ids[id],
              rec = recs[rec],
-             stress = str_replace_all(stress, " ", "")) |>
+             stress = str_replace_all(stress, " ", ""),
+             phoneme = str_replace_all(phoneme, " ", "")) |>
       drop_na() |>
       bind_rows(features) -> features
   }
@@ -58,4 +59,17 @@ vowels |>
   scale_x_reverse(position = "top") +
   scale_y_reverse(position="right") +
   facet_wrap(~ stress) +
-  guides(color = "none")
+  guides(color = "none") +
+  scale_color_manual(
+    values = c(
+      "red3", "orange3", "gold3", "springgreen3", "seagreen", "royalblue3",
+      "darkblue", "darkred", "purple3", "pink3", "violet", "gray20", "gray40"
+    ))
+
+vowels$phoneme |> table()
+
+vowels |> summarise(mean = mean(f1),
+                    max = max(f1),
+                    min = min(f1),
+                    quin1 = quantile(f1, 1/5),
+                    quin4 = quantile(f1, 4/5))
