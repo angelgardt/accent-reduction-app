@@ -22,7 +22,10 @@ def stft(signal, sr, frame):
     # get intensity in dB
     I = librosa.amplitude_to_db(A, ref=np.max, top_db=70)
 
-    return I
+    # get frequencies array
+    freqs = np.arange(0, 1 + frame_size / 2) * sr / frame_size
+
+    return (I, freqs)
 
 def plot_spectrum(I, sr, frame, xlim=None, ylim=None, figsize=(10, 5)):
     
