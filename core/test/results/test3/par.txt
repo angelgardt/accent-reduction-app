@@ -1,0 +1,8 @@
+frame = 0.007
+low_crop = 0
+high_crop = 27
+intensity_threshold = -20
+low_freq = 200
+high_freq = 1000
+gap = 3
+min_duration = 0.02
