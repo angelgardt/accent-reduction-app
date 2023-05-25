@@ -6,7 +6,9 @@ def vowel_duration(I,
                    low_freq = 200,
                    high_freq = 1000, 
                    gap = 3,
-                   min_duration = 0.02):
+                   min_duration = 0.02,
+                   save=True,
+                   suffix=None):
     
     I_ = I[:crop, :]
     max_intensity_bins = np.argmax(I_, axis=0)
@@ -49,5 +51,15 @@ def vowel_duration(I,
             j += 2
     
     duration_time = np.array(duration_frames) * frame
+    duration_time_ = duration_time[duration_time > min_duration]
+
+    if save:
+        if suffix is None:
+            print("Please specify suffix")
+            return None
+        np.savetxt("I"+suffix+".csv", I_, delimiter=",")
+        # np.savetxt("freqs"+suffix+".csv", freqs, delimiter=",")
+        np.savetxt("bounded_frames"+suffix+".csv", bounded_frames, delimiter=",")
+        np.savetxt("duration_time"+suffix+".csv", duration_time_, delimiter=",")
     
-    return duration_time[duration_time > min_duration]
+    return duration_time_
