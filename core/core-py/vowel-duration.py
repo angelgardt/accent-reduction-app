@@ -27,14 +27,14 @@ def vowel_duration(I,
                 intervals.append(n)
                 n = 0
         except IndexError:
-            intervals.apppend(n)
+            intervals.append(n)
     
     duration_frames = []
     l = 0
     j = 0
 
     while j < len(intervals):
-        if intervals[j] < -3:
+        if intervals[j] < -gap:
             if l > 0:
                 duration_frames.append(l)
                 l = 0
@@ -44,8 +44,10 @@ def vowel_duration(I,
         elif intervals[j] > 0:
             l = intervals[j]
             j += 1
-        elif intervals[j] >= -3 and intervals[j] < 0:
+        elif intervals[j] >= -gap and intervals[j] < 0:
             l += intervals[j+1]
             j += 2
     
-    return np.array(duration_frames) * frame
+    duration_time = np.array(duration_frames) * frame
+    
+    return duration_time[duration_time > min_duration]
