@@ -31,7 +31,7 @@ for file in files:
                             high_freq,
                             gap,
                             min_duration,
-                            suffix=suffix,
+                            suffix="_"+suffix,
                             sr=None,
                             mono=None,
                             save=True)

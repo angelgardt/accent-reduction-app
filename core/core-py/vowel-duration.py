@@ -59,7 +59,7 @@ def vowel_duration(I,
             return None
         np.savetxt("I"+suffix+".csv", I_, delimiter=",")
         # np.savetxt("freqs"+suffix+".csv", freqs, delimiter=",")
-        np.savetxt("bounded_frames"+suffix+".csv", bounded_frames, delimiter=",")
-        np.savetxt("duration_time"+suffix+".csv", duration_time_, delimiter=",")
+        np.savetxt("bounded-frames"+suffix+".csv", bounded_frames, delimiter=",")
+        np.savetxt("duration-time"+suffix+".csv", duration_time_, delimiter=",")
     
     return duration_time_

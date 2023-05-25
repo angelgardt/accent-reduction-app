@@ -25,6 +25,8 @@ for (id in 1:length(ids)) {
 
 str(features)
 
+features |> write_csv("features.csv")
+
 features |>
   mutate_at(vars("duration",
                  "timef",
@@ -38,6 +40,8 @@ features |>
                  "intensitymax"), as.numeric) |>
   filter(stress %in% 1:3) |>
   mutate(stress = factor(stress, ordered = TRUE, levels = 1:3)) -> vowels
+
+vowels |> write_csv("vowels-features.csv")
 
 # features |> filter(phoneme == "əᶦ")
 
@@ -73,3 +77,8 @@ vowels |> summarise(mean = mean(f1),
                     min = min(f1),
                     quin1 = quantile(f1, 1/5),
                     quin4 = quantile(f1, 4/5))
+
+vowels |>
+  group_by(stress) |>
+  summarise(min = min(duration),
+            max = max(duration))
