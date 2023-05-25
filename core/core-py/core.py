@@ -3,18 +3,6 @@ import librosa
 import numpy as np
 # import matplotlib.pyplot as plt
 
-base_folder = "/home/angelgardt/accent-reduction-app/data/recs/v1/subj1/homographs"
-file = "24-1.wav"
-# file = "24-2.wav"
-
-frame = 0.005
-crop = 27
-intensity_threshold = -20
-low_freq = 200
-high_freq = 1000
-gap = 3
-min_duration = 0.02
-
 def core_stressed_vowel(file,
                         base_folder,
                         frame,
