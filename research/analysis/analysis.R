@@ -38,18 +38,40 @@ features |>
                  "f3",
                  "intensity",
                  "intensitymax"), as.numeric) |>
-  filter(stress %in% 1:3) |>
-  mutate(stress = factor(stress, ordered = TRUE, levels = 1:3)) -> vowels
+  filter(stress %in% 1:3) -> vowels
 
 vowels |> write_csv("vowels-features.csv")
 
 # features |> filter(phoneme == "əᶦ")
 
-vowels <- read_csv("vowels-features.csv")
+read_csv("vowels-features.csv") |>
+  mutate(stress = factor(stress, ordered = TRUE, levels = 1:3)) -> vowels
+
+vowels$stress
 
 vowels |>
   ggplot(aes(stress, duration)) +
-  stat_summary(fun.data = mean_cl_boot, geom = "pointrange")
+  stat_summary(fun.data = mean_cl_boot,
+               geom = "pointrange")
+
+ez::ezANOVA(vowels, dv = duration, between = stress, wid = rec)
+
+vowels |>
+  select(stress, intensity, intensitymax, rec) |>
+  pivot_longer(cols = -c('rec', 'stress')) |>
+  ggplot(aes(stress, value, color = name)) +
+  stat_summary(fun.data = mean_cl_boot,
+               geom = "pointrange",
+               position = position_dodge(.3))
+
+vowels |>
+  select(stress, f0, f0max, rec) |>
+  pivot_longer(cols = -c('rec', 'stress')) |>
+  ggplot(aes(stress, value, color = name)) +
+  stat_summary(fun.data = mean_cl_boot,
+               geom = "pointrange",
+               position = position_dodge(.3))
+
 
 vowels |>
   aggregate(cbind(f1, f2) ~ phoneme, median) |>
@@ -61,7 +83,7 @@ vowels |>
              label = phoneme, color = phoneme)) +
   geom_text() +
   stat_ellipse() +
-  geom_point(data = centroids, aes(f2, f1, color = phoneme), size = 2) +
+  #geom_point(data = centroids, aes(f2, f1, color = phoneme), size = 2) +
   scale_x_reverse(position = "top") +
   scale_y_reverse(position="right") +
   facet_wrap(~ stress) +
