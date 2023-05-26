@@ -45,6 +45,8 @@ vowels |> write_csv("vowels-features.csv")
 
 # features |> filter(phoneme == "əᶦ")
 
+vowels <- read_csv("vowels-features.csv")
+
 vowels |>
   ggplot(aes(stress, duration)) +
   stat_summary(fun.data = mean_cl_boot, geom = "pointrange")
@@ -72,11 +74,21 @@ vowels |>
 
 vowels$phoneme |> table()
 
-vowels |> summarise(mean = mean(f1),
-                    max = max(f1),
-                    min = min(f1),
-                    quin1 = quantile(f1, 1/5),
-                    quin4 = quantile(f1, 4/5))
+vowels |>
+  select(f1, f2) |>
+  pivot_longer(cols = everything(), names_to = "formant") |>
+  group_by(formant) |>
+  summarise(
+    mean = mean(value),
+    max = max(value),
+    min = min(value),
+    quin1 = quantile(value, 1 / 5),
+    quin4 = quantile(value, 4 / 5)
+  )
+
+# freq bins
+frame_size = as.integer(round(0.005 * 44100))
+freqs = seq(0, 1 + frame_size / 2) * 44100 / frame_size
 
 vowels |>
   group_by(stress) |>

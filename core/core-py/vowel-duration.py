@@ -1,7 +1,8 @@
 def vowel_duration(I,
                    freqs,
                    frame,
-                   crop = 27,
+                   low_crop = 0,
+                   high_crop = 27,
                    intensity_threshold = -20,
                    low_freq = 200,
                    high_freq = 1000, 
@@ -10,11 +11,11 @@ def vowel_duration(I,
                    save=True,
                    suffix=None):
     
-    I_ = I[:crop, :]
+    I_ = I[low_crop:high_crop, :]
     max_intensity_bins = np.argmax(I_, axis=0)
     max_intensity_freqs = np.array([freqs[i] for i in max_intensity_bins])
     bounded_freqs = (max_intensity_freqs > low_freq) & (max_intensity_freqs < high_freq)
-    bounded_intensity = np.max(I_[(freqs[:crop] > low_freq) & (freqs[:27] < high_freq), :], axis=0) > intensity_threshold
+    bounded_intensity = np.max(I_[(freqs[low_crop:high_crop] > low_freq) & (freqs[low_crop:high_crop] < high_freq), :], axis=0) > intensity_threshold
     bounded_frames = bounded_freqs & bounded_intensity
 
     intervals = []

@@ -1,2 +1,4 @@
 def stressed_vowel(duration):
-    return np.argmax(duration) + 1
+    if duration.size > 0:
+        return np.argmax(duration) + 1
+    return None
