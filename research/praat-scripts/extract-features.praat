@@ -53,7 +53,6 @@ for thisInterval from 1 to numberOfPhonemes
     f1 = Get value at time... 1 midpoint Hertz Linear
     f2 = Get value at time... 2 midpoint Hertz Linear
     f3 = Get value at time... 3 midpoint Hertz Linear
-	f4 = Get value at time... 4 midpoint Hertz Linear
 
 	writeInfoLine: "Extracting intensity..."
 	
