@@ -26,7 +26,7 @@ To Intensity... 75 0.001
 
 # Create the output file and write the first line
 outputPath$ = "/Users/antonangelgardt/accent-reduction-app/data/features/" + subj$ + "/" + filename$ + ".csv"
-writeFileLine: "'outputPath$'", "numphoneme,phoneme,stress,duration,timef,f0,f0max,f0min,f1,f2,f3,intensity, intensitymax"
+writeFileLine: "'outputPath$'", "numphoneme,phoneme,duration,timef,f0,f0max,f0min,f1,f2,f3,intensity, intensitymax"
 
 
 for thisInterval from 1 to numberOfPhonemes
@@ -44,7 +44,7 @@ for thisInterval from 1 to numberOfPhonemes
 	midstart = start + (0.2 * duration)
 	midend = end - (0.2 * duration)
 	
-	writeInfoLine: "Extracting formants..."
+	appendInfoLine: "Extracting formants..."
 
     # Extract formant measurements
     select Formant 'thisSound$'
@@ -52,7 +52,7 @@ for thisInterval from 1 to numberOfPhonemes
     f2 = Get value at time... 2 midpoint Hertz Linear
     f3 = Get value at time... 3 midpoint Hertz Linear
 
-	writeInfoLine: "Extracting intensity..."
+	appendInfoLine: "Extracting intensity..."
 	
 	# Extract intensity
 	select Intensity 'thisSound$'
@@ -63,7 +63,7 @@ for thisInterval from 1 to numberOfPhonemes
 	# get the max intensity
 	maxIntensity = Get maximum... start end Cubic
 
-	writeInfoLine: "Extracting pitch..."
+	appendInfoLine: "Extracting pitch..."
 	
 	# Extract pitch
 	select Pitch 'thisSound$'
