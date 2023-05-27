@@ -5,9 +5,28 @@ theme_set(theme_bw())
 folder <- "../../data/features/"
 ids <- folder |> dir()
 recs <- folder |> paste0(ids[1], "/") |> dir()
+tibble(phoneme = c("ɐ", "o", "a", "ə", "ə̝",  "ɪ",  "i",  "ʊ", "u",  "e",  "ɨ̞",  "ɨ",  "əᶷ", "ə̝ᶷ"),
+       reduction = c(2, 1, 1, 3, 3, 2, 1, 2, 1, 1, 2, 1, 3, 3)) -> reduction
+
 features <- tibble()
 
-for (id in 1:length(ids)) {
+for (rec in 1:length(recs)) {
+  print(rec)
+  paste0(folder, ids[1], "/", recs[rec]) |>
+    read.csv(fileEncoding = "UTF-16") |>
+    mutate_all(as.character) |>
+    mutate(id = ids[1],
+           rec = recs[rec] |> str_remove_all(".csv"),
+           phoneme = str_remove_all(phoneme, " "),
+           numphoneme = as.numeric(numphoneme) - 1) |>
+    drop_na() |>
+    filter(phoneme != "") |>
+    left_join(reduction, by = c("phoneme")) |>
+    replace_na(list(reduction = 0))|>
+    bind_rows(features) -> features
+}
+
+for (id in 2:length(ids)) {
   print(id)
   for (rec in 1:length(recs)) {
     print(rec)
@@ -15,10 +34,13 @@ for (id in 1:length(ids)) {
       read.csv(fileEncoding = "UTF-16") |>
       mutate_all(as.character) |>
       mutate(id = ids[id],
-             rec = recs[rec],
-             stress = str_replace_all(stress, " ", ""),
-             phoneme = str_replace_all(phoneme, " ", "")) |>
+             rec = recs[rec] |> str_remove_all(".csv"),
+             phoneme = str_remove_all(phoneme, " "),
+             numphoneme = as.numeric(numphoneme) - 1) |>
       drop_na() |>
+      filter(phoneme != "") |>
+      left_join(reduction, by = c("phoneme")) |>
+      replace_na(list(reduction = 0)) |>
       bind_rows(features) -> features
   }
 }
@@ -26,6 +48,10 @@ for (id in 1:length(ids)) {
 str(features)
 
 features |> write_csv("features.csv")
+
+features <- read_csv("features.csv")
+
+features |> View()
 
 features |>
   mutate_at(vars("duration",
@@ -38,36 +64,52 @@ features |>
                  "f3",
                  "intensity",
                  "intensitymax"), as.numeric) |>
-  filter(stress %in% 1:3) -> vowels
+  select(-stress) |>
+  filter(reduction %in% 1:3) -> vowels
 
 vowels |> write_csv("vowels-features.csv")
 
 # features |> filter(phoneme == "əᶦ")
 
 read_csv("vowels-features.csv") |>
-  mutate(stress = factor(stress, ordered = TRUE, levels = 1:3)) -> vowels
+  mutate(reduction = factor(reduction, ordered = TRUE, levels = 1:3)) -> vowels
+
+vowels |>
+  filter(reduction == 1) |>
+  select(duration, rec, id) |>
+  rename("stressed_duration" = duration) |>
+  right_join(vowels, by = c("rec", "id")) |>
+  mutate(rel_duration = duration / stressed_duration) |>
+  select(-stressed_duration) -> vowels
 
 vowels$stress
 
 vowels |>
-  ggplot(aes(stress, duration)) +
+  ggplot(aes(reduction, rel_duration, color = id)) +
   stat_summary(fun.data = mean_cl_boot,
                geom = "pointrange")
+
+vowels |>
+  ggplot(aes(reduction, rel_duration, color = id)) +
+  stat_summary(fun.data = mean_cl_boot,
+               geom = "pointrange") +
+  facet_wrap(~ rec)
+
 
 ez::ezANOVA(vowels, dv = duration, between = stress, wid = rec)
 
 vowels |>
-  select(stress, intensity, intensitymax, rec) |>
-  pivot_longer(cols = -c('rec', 'stress')) |>
-  ggplot(aes(stress, value, color = name)) +
+  select(reduction, intensity, intensitymax, rec) |>
+  pivot_longer(cols = -c('rec', 'reduction')) |>
+  ggplot(aes(reduction, value, color = name)) +
   stat_summary(fun.data = mean_cl_boot,
                geom = "pointrange",
                position = position_dodge(.3))
 
 vowels |>
-  select(stress, f0, f0max, rec) |>
-  pivot_longer(cols = -c('rec', 'stress')) |>
-  ggplot(aes(stress, value, color = name)) +
+  select(reduction, f0, f0max, f0min, rec) |>
+  pivot_longer(cols = -c('rec', 'reduction')) |>
+  ggplot(aes(reduction, value, color = name)) +
   stat_summary(fun.data = mean_cl_boot,
                geom = "pointrange",
                position = position_dodge(.3))
@@ -76,22 +118,34 @@ vowels |>
 vowels |>
   aggregate(cbind(f1, f2) ~ phoneme, median) |>
   as_tibble() |>
-  right_join(vowels |> select(phoneme, stress)) -> centroids
+  right_join(vowels |> select(phoneme, reduction)) -> centroids
 
 vowels |>
   ggplot(aes(f2, f1,
              label = phoneme, color = phoneme)) +
   geom_text() +
   stat_ellipse() +
-  #geom_point(data = centroids, aes(f2, f1, color = phoneme), size = 2) +
+  geom_point(data = centroids, aes(f2, f1, color = phoneme), size = 2) +
   scale_x_reverse(position = "top") +
   scale_y_reverse(position="right") +
-  facet_wrap(~ stress) +
+  facet_wrap(~ reduction) +
   guides(color = "none") +
   scale_color_manual(
     values = c(
-      "red3", "orange3", "gold3", "springgreen3", "seagreen", "royalblue3",
-      "darkblue", "darkred", "purple3", "pink3", "violet", "gray20", "gray40"
+      "a" = "salmon3",
+      "o" = "orange3",
+      "e" = "springgreen3",
+      "ɨ" = "green4",
+      "u" = "royalblue4",
+      "ɐ" = "red3",
+      "ɨ̞" = "seagreen",
+      "ʊ" = "blue4",
+      "ə" = "gray20",
+      "əᶷ" = "slateblue4",
+      "i" = "tan4",
+      "ɪ" = "gold3",
+      "ə̝" = "gray40",
+      "ə̝ᶷ" = "lightblue4"
     ))
 
 vowels$phoneme |> table()
