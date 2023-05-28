@@ -8,6 +8,8 @@ recs <- folder |> paste0(ids[1], "/") |> dir()
 tibble(phoneme = c("ɐ", "o", "a", "ə", "ə̝",  "ɪ",  "i",  "ʊ", "u",  "e",  "ɨ̞",  "ɨ",  "əᶷ", "ə̝ᶷ"),
        reduction = c(2, 1, 1, 3, 3, 2, 1, 2, 1, 1, 2, 1, 3, 3)) -> reduction
 
+reduction |> write.csv("reduction.csv", fileEncoding = "UTF-16")
+
 features <- tibble()
 
 for (rec in 1:length(recs)) {
@@ -132,17 +134,17 @@ vowels |>
   guides(color = "none") +
   scale_color_manual(
     values = c(
-      "a" = "salmon3",
+      "a" = "coral3",
       "o" = "orange3",
       "e" = "springgreen3",
       "ɨ" = "green4",
       "u" = "royalblue4",
-      "ɐ" = "red3",
+      "ɐ" = "salmon3",
       "ɨ̞" = "seagreen",
       "ʊ" = "blue4",
       "ə" = "gray20",
-      "əᶷ" = "slateblue4",
-      "i" = "tan4",
+      "əᶷ" = "slateblue2",
+      "i" = "red3",
       "ɪ" = "gold3",
       "ə̝" = "gray40",
       "ə̝ᶷ" = "lightblue4"
