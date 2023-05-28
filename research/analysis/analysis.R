@@ -278,7 +278,7 @@ vowels |>
   filter(f1 < 1000) |>
   ggplot(aes(f2, f1,
              label = phoneme, color = phoneme)) +
-  geom_text(alpha = .5, ) +
+  geom_text(alpha = .5) +
   stat_ellipse(level = .8) +
   geom_point(data = centroids, aes(f2, f1, color = phoneme), size = 2) +
   scale_x_reverse(position = "top") +
