@@ -1,0 +1,192 @@
+Linear mixed model fit by REML. t-tests use Satterthwaite's method ['lmerModLmerTest']
+Formula: f0 ~ as.character(reduction) + (1 | id)
+   Data: vowels
+
+REML criterion at convergence: 7672.6
+
+Scaled residuals: 
+    Min      1Q  Median      3Q     Max 
+-5.9032 -0.2905  0.0274  0.3183  7.8670 
+
+Random effects:
+ Groups   Name        Variance Std.Dev.
+ id       (Intercept) 2920     54.04   
+ Residual             1244     35.27   
+Number of obs: 769, groups:  id, 5
+
+Fixed effects:
+                         Estimate Std. Error      df t value Pr(>|t|)   
+(Intercept)               147.502     24.239   4.027   6.085  0.00361 **
+as.character(reduction)2    1.838      3.152 762.000   0.583  0.56003   
+as.character(reduction)3    4.571      3.018 762.000   1.514  0.13035   
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Correlation of Fixed Effects:
+            (Intr) as.()2
+as.chrct()2 -0.047       
+as.chrct()3 -0.049  0.374
+[1] "##################################################"
+Linear mixed model fit by REML. t-tests use Satterthwaite's method ['lmerModLmerTest']
+Formula: f0min ~ as.character(reduction) + (1 | id)
+   Data: vowels
+
+REML criterion at convergence: 7459.8
+
+Scaled residuals: 
+    Min      1Q  Median      3Q     Max 
+-6.3858 -0.1877  0.0450  0.2675  9.1583 
+
+Random effects:
+ Groups   Name        Variance Std.Dev.
+ id       (Intercept) 2780.2   52.73   
+ Residual              941.3   30.68   
+Number of obs: 769, groups:  id, 5
+
+Fixed effects:
+                         Estimate Std. Error      df t value Pr(>|t|)   
+(Intercept)               135.033     23.638   4.021   5.713  0.00457 **
+as.character(reduction)2    8.093      2.742 762.000   2.952  0.00325 **
+as.character(reduction)3    7.531      2.625 762.000   2.869  0.00424 **
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Correlation of Fixed Effects:
+            (Intr) as.()2
+as.chrct()2 -0.041       
+as.chrct()3 -0.043  0.374
+[1] "##################################################"
+Linear mixed model fit by REML. t-tests use Satterthwaite's method ['lmerModLmerTest']
+Formula: f0max ~ as.character(reduction) + (1 | id)
+   Data: vowels
+
+REML criterion at convergence: 7890.7
+
+Scaled residuals: 
+    Min      1Q  Median      3Q     Max 
+-5.9776 -0.3951  0.0318  0.3355  6.5797 
+
+Random effects:
+ Groups   Name        Variance Std.Dev.
+ id       (Intercept) 3660     60.50   
+ Residual             1655     40.68   
+Number of obs: 769, groups:  id, 5
+
+Fixed effects:
+                         Estimate Std. Error      df t value Pr(>|t|)   
+(Intercept)               164.151     27.142   4.029   6.048  0.00369 **
+as.character(reduction)2   -9.693      3.635 762.000  -2.667  0.00782 **
+as.character(reduction)3    3.822      3.480 762.000   1.098  0.27254   
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Correlation of Fixed Effects:
+            (Intr) as.()2
+as.chrct()2 -0.048       
+as.chrct()3 -0.050  0.374
+[1] "##################################################"
+Linear mixed model fit by REML. t-tests use Satterthwaite's method ['lmerModLmerTest']
+Formula: f0 ~ position + (1 | id)
+   Data: vowels
+
+REML criterion at convergence: 7644.9
+
+Scaled residuals: 
+    Min      1Q  Median      3Q     Max 
+-5.7258 -0.3112  0.0390  0.3142  7.7686 
+
+Random effects:
+ Groups   Name        Variance Std.Dev.
+ id       (Intercept) 2919     54.03   
+ Residual             1232     35.10   
+Number of obs: 769, groups:  id, 5
+
+Fixed effects:
+            Estimate Std. Error      df t value Pr(>|t|)   
+(Intercept)  156.921     24.346   4.100   6.445  0.00274 **
+positionI    -18.816      7.065 759.000  -2.663  0.00791 **
+positionO    -15.033      9.538 759.000  -1.576  0.11543   
+positionR     -5.538      4.041 759.000  -1.371  0.17093   
+positionS     -9.417      3.526 759.000  -2.671  0.00773 **
+positionT    -12.106      5.028 759.000  -2.408  0.01630 * 
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Correlation of Fixed Effects:
+          (Intr) postnI postnO postnR postnS
+positionI -0.052                            
+positionO -0.038  0.131                     
+positionR -0.090  0.310  0.230              
+positionS -0.103  0.356  0.264  0.622       
+positionT -0.072  0.249  0.185  0.436  0.500
+[1] "##################################################"
+Linear mixed model fit by REML. t-tests use Satterthwaite's method ['lmerModLmerTest']
+Formula: f0min ~ position + (1 | id)
+   Data: vowels
+
+REML criterion at convergence: 7436.5
+
+Scaled residuals: 
+    Min      1Q  Median      3Q     Max 
+-6.2606 -0.2098  0.0357  0.2847  9.0952 
+
+Random effects:
+ Groups   Name        Variance Std.Dev.
+ id       (Intercept) 2780.2   52.73   
+ Residual              936.3   30.60   
+Number of obs: 769, groups:  id, 5
+
+Fixed effects:
+            Estimate Std. Error       df t value Pr(>|t|)   
+(Intercept) 145.2404    23.7228   4.0796   6.122  0.00338 **
+positionI   -12.8035     6.1600 759.0000  -2.078  0.03800 * 
+positionO   -10.2981     8.3160 759.0000  -1.238  0.21597   
+positionR    -0.1705     3.5229 759.0001  -0.048  0.96140   
+positionS   -10.1179     3.0741 759.0001  -3.291  0.00104 **
+positionT    -7.0245     4.3841 759.0001  -1.602  0.10951   
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Correlation of Fixed Effects:
+          (Intr) postnI postnO postnR postnS
+positionI -0.046                            
+positionO -0.034  0.131                     
+positionR -0.081  0.310  0.230              
+positionS -0.092  0.356  0.264  0.622       
+positionT -0.065  0.249  0.185  0.436  0.500
+[1] "##################################################"
+Linear mixed model fit by REML. t-tests use Satterthwaite's method ['lmerModLmerTest']
+Formula: f0max ~ position + (1 | id)
+   Data: vowels
+
+REML criterion at convergence: 7850.8
+
+Scaled residuals: 
+    Min      1Q  Median      3Q     Max 
+-5.7202 -0.4168  0.0490  0.3692  6.4290 
+
+Random effects:
+ Groups   Name        Variance Std.Dev.
+ id       (Intercept) 3659     60.49   
+ Residual             1614     40.17   
+Number of obs: 769, groups:  id, 5
+
+Fixed effects:
+            Estimate Std. Error      df t value Pr(>|t|)    
+(Intercept)  177.369     27.265   4.104   6.505  0.00263 ** 
+positionI    -33.917      8.087 759.000  -4.194 3.06e-05 ***
+positionO    -29.285     10.917 759.000  -2.682  0.00747 ** 
+positionR    -20.910      4.625 759.000  -4.521 7.13e-06 ***
+positionS    -13.291      4.036 759.000  -3.293  0.00104 ** 
+positionT    -22.750      5.755 759.000  -3.953 8.45e-05 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Correlation of Fixed Effects:
+          (Intr) postnI postnO postnR postnS
+positionI -0.053                            
+positionO -0.039  0.131                     
+positionR -0.092  0.310  0.230              
+positionS -0.106  0.356  0.264  0.622       
+positionT -0.074  0.249  0.185  0.436  0.500
+[1] "##################################################"
