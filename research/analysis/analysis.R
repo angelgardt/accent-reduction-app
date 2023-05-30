@@ -9,7 +9,7 @@ read_csv("features.csv") -> features
 # filter vowels
 features |>
   filter(reduction %in% 1:3) |>
-  mutate(reduction = factor(reduction, ordered = TRUE, levels = 1:3)) -> vowels
+  mutate(reduction = factor(reduction)) -> vowels
 
 ### DURATION -----
 # plot absolute duration of vowels different reduction
@@ -28,19 +28,19 @@ ggsave("graphs/absolute_duration.jpeg", width = 210, units = "mm")
 
 # add id to prev graph
 pd <- position_dodge(.3)
-vowels |>
-  ggplot(aes(reduction, duration, color = id)) +
-  stat_summary(fun.data = mean_cl_boot,
-               geom = "errorbar",
-               width = .5,
-               position = pd) +
-  stat_summary(fun = mean,
-               geom = "point",
-               size = 2,
-               position = pd) +
-  labs(x = "Степень редукции",
-       y = "Абсолютная длительность, с") +
-  theme(legend.position = "bottom")
+# vowels |>
+#   ggplot(aes(reduction, duration, color = id)) +
+#   stat_summary(fun.data = mean_cl_boot,
+#                geom = "errorbar",
+#                width = .5,
+#                position = pd) +
+#   stat_summary(fun = mean,
+#                geom = "point",
+#                size = 2,
+#                position = pd) +
+#   labs(x = "Степень редукции",
+#        y = "Абсолютная длительность, с") +
+#   theme(legend.position = "bottom")
 
 # add vowel position in the word to first graph
 vowels |>
@@ -156,27 +156,37 @@ vowels |>
 ggsave("graphs/intensity_position.jpeg", width = 210, units = "mm")
 
 ## do statistics
-model_intensity <- lmer(intensity ~ as.character(reduction) + (1|id),
-                        data = vowels)
+model_intensity_null <- lmer(intensity ~ 1 + (1|id),
+                        data = vowels, REML = FALSE)
+model_intensity <- lmer(intensity ~ reduction + (1|id),
+                        data = vowels, REML = FALSE)
 summary(model_intensity)
+anova(model_intensity_null, model_intensity)
 
 model_intensity_position <- lmer(intensity ~ position + (1|id),
-                        data = vowels)
+                        data = vowels, REML = FALSE)
 summary(model_intensity_position)
 
-model_intensitymax <- lmer(intensitymax ~ as.character(reduction) + (1|id),
-                        data = vowels)
+model_intensitymax_null <- lmer(intensitymax ~ 1 + (1|id),
+                           data = vowels, REML = FALSE)
+
+model_intensitymax <- lmer(intensitymax ~ reduction + (1|id),
+                        data = vowels, REML = FALSE)
 summary(model_intensitymax)
 
 model_intensitymax_position <- lmer(intensitymax ~ position + (1|id),
-                                 data = vowels)
+                                 data = vowels, REML = FALSE)
 summary(model_intensitymax_position)
 
 ## save results
 sink("results/intensity_lmer.txt")
+anova(model_intensity_null, model_intensity)
 summary(model_intensity); print("##################################################")
+anova(model_intensity_null, model_intensity_position)
 summary(model_intensity_position); print("##################################################")
+anova(model_intensitymax_null, model_intensitymax)
 summary(model_intensitymax); print("##################################################")
+anova(model_intensitymax_null, model_intensitymax_position)
 summary(model_intensitymax_position); print("##################################################")
 sink()
 
