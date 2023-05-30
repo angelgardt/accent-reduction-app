@@ -37,7 +37,10 @@ vowels |>
                size = 2) +
   labs(x = "Степень редукции",
        y = "Абсолютная длительность, с")
-ggsave("graphs/absolute_duration.jpeg", width = 210, units = "mm")
+ggsave("graphs/absolute_duration.jpeg",
+       width = 210,
+       height = 170,
+       units = "mm")
 
 
 # add id to prev graph
@@ -71,7 +74,10 @@ vowels |>
        color = "Позиция в слове") +
   theme(legend.position = "bottom") +
   scale_color_manual(values = pos_col)
-ggsave("graphs/absolute_duration_position.jpeg", width = 210, units = "mm")
+ggsave("graphs/absolute_duration_position.jpeg",
+       width = 210,
+       height = 170,
+       units = "mm")
 
 
 # check is there any bugs
@@ -115,7 +121,10 @@ vowels |>
        color = "Позиция в слове") +
   theme(legend.position = "bottom") +
   scale_color_manual(values = pos_col)
-ggsave("graphs/relative_duration_position.jpeg", width = 210, units = "mm")
+ggsave("graphs/relative_duration_position.jpeg",
+       width = 210,
+       height = 170,
+       units = "mm")
 
 ## descriptives
 vowels |>
@@ -228,7 +237,10 @@ vowels |>
              )) +
   labs(x = "Степень редукции",
        y = "Интенсивность, дБ")
-ggsave("graphs/intensity.jpeg", width = 210, units = "mm")
+ggsave("graphs/intensity.jpeg",
+       width = 210,
+       height = 170,
+       units = "mm")
 
 # add vowel position in the word to previous graph
 vowels |>
@@ -254,7 +266,10 @@ vowels |>
        color = "Позиция в слове") +
   theme(legend.position = "bottom") +
   scale_color_manual(values = pos_col)
-ggsave("graphs/intensity_position.jpeg", width = 210, units = "mm")
+ggsave("graphs/intensity_position.jpeg",
+       width = 210,
+       height = 170,
+       units = "mm")
 
 ## do statistics
 model_intensity_null <- lmer(intensity ~ 1 + (1|id),
@@ -319,7 +334,10 @@ vowels |>
                ))) +
   labs(x = "Степень редукции",
        y = "Частота, Гц")
-ggsave("graphs/pitch.jpeg", width = 210, units = "mm")
+ggsave("graphs/pitch.jpeg",
+       width = 210,
+       height = 170,
+       units = "mm")
 
 # add vowel position in the word to previous graph
 vowels |>
@@ -344,8 +362,12 @@ vowels |>
   labs(x = "Степень редукции",
        y = "Частота, Гц",
        color = "Позиция в слове") +
-  theme(legend.position = "bottom")
-ggsave("graphs/pitch_position.jpeg", width = 210, units = "mm")
+  theme(legend.position = "bottom") +
+  scale_color_manual(values = pos_col)
+ggsave("graphs/pitch_position.jpeg",
+       width = 210,
+       height = 170,
+       units = "mm")
 
 ## do statistics
 model_pitch_null <- lmer(f0 ~ 1 + (1|id),
@@ -444,9 +466,14 @@ vowels |>
     )) +
   labs(x = "F2",
        y = "F1")
-ggsave("graphs/formants.jpeg", width = 210, units = "mm")
+ggsave("graphs/formants.jpeg",
+       width = 210,
+       height = 170,
+       units = "mm")
 
 vowels$phoneme |> table()
+
+
 
 
 vowels |>
@@ -481,4 +508,11 @@ vowels |>
     quin4 = quantile(value, 4/5, na.rm = TRUE)
   ) |>
   write_csv("results/formants_overall.csv")
+
+
+
+
+
+
+
 
