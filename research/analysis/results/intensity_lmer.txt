@@ -65,22 +65,22 @@ Number of obs: 769, groups:  id, 5
 
 Fixed effects:
             Estimate Std. Error       df t value Pr(>|t|)    
-(Intercept)  62.3362     2.9658   5.1048  21.018 3.73e-06 ***
-positionI     4.0128     0.7901 764.0000   5.079 4.78e-07 ***
-positionO     4.8711     1.0666 764.0000   4.567 5.77e-06 ***
-positionR     5.6191     0.4519 764.0000  12.436  < 2e-16 ***
-positionS     5.2260     0.3943 764.0000  13.254  < 2e-16 ***
-positionT     1.6933     0.5623 764.0000   3.011  0.00269 ** 
+(Intercept)  65.9066     2.9564   5.0407  22.293 3.12e-06 ***
+position.L   -2.1202     0.6835 764.0000  -3.102  0.00199 ** 
+position.Q    1.8792     0.6191 764.0000   3.036  0.00248 ** 
+position.C    3.1318     0.5876 764.0000   5.330 1.30e-07 ***
+position^4    2.3970     0.5307 764.0000   4.517 7.27e-06 ***
+position^5   -1.2315     0.4298 764.0000  -2.865  0.00428 ** 
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
 Correlation of Fixed Effects:
-          (Intr) postnI postnO postnR postnS
-positionI -0.047                            
-positionO -0.035  0.131                     
-positionR -0.083  0.310  0.230              
-positionS -0.095  0.356  0.264  0.622       
-positionT -0.066  0.249  0.185  0.436  0.500
+           (Intr) pstn.L pstn.Q pstn.C pstn^4
+position.L  0.038                            
+position.Q  0.035  0.780                     
+position.C  0.052  0.277  0.526              
+position^4 -0.004  0.545  0.304 -0.201       
+position^5  0.034 -0.026 -0.041  0.284 -0.147
 [1] "##################################################"
 Data: vowels
 Models:
@@ -149,20 +149,20 @@ Number of obs: 769, groups:  id, 5
 
 Fixed effects:
             Estimate Std. Error       df t value Pr(>|t|)    
-(Intercept)  64.3980     3.0062   5.0868  21.422 3.50e-06 ***
-positionI     3.3561     0.7300 764.0000   4.597 5.01e-06 ***
-positionO     3.4649     0.9855 764.0000   3.516 0.000464 ***
-positionR     4.5799     0.4175 764.0000  10.970  < 2e-16 ***
-positionS     4.8131     0.3643 764.0000  13.212  < 2e-16 ***
-positionT     1.0578     0.5196 764.0000   2.036 0.042105 *  
+(Intercept)  69.2111     2.9968   5.0234  23.095 2.71e-06 ***
+positionI    -1.4570     0.6903 764.0000  -2.111   0.0351 *  
+positionR    -0.2332     0.3432 764.0000  -0.679   0.4971    
+positionT    -3.7553     0.4620 764.0000  -8.128 1.75e-15 ***
+positionF    -4.8131     0.3643 764.0000 -13.212  < 2e-16 ***
+positionO    -1.3482     0.9564 764.0000  -1.410   0.1591    
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
 Correlation of Fixed Effects:
-          (Intr) postnI postnO postnR postnS
-positionI -0.043                            
-positionO -0.032  0.131                     
-positionR -0.075  0.310  0.230              
-positionS -0.086  0.356  0.264  0.622       
-positionT -0.061  0.249  0.185  0.436  0.500
+          (Intr) postnI postnR postnT postnF
+positionI -0.018                            
+positionR -0.037  0.161                     
+positionT -0.028  0.120  0.240              
+positionF -0.035  0.152  0.305  0.226       
+positionO -0.013  0.058  0.116  0.086  0.109
 [1] "##################################################"

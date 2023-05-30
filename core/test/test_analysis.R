@@ -35,3 +35,12 @@ results |>
 results |>
   group_by(rec) |>
   summarise(count = sum(correct))
+
+# freq bins
+frame_size = as.integer(round(0.005 * 44100))
+freqs = seq(0, 1 + frame_size / 2) * 44100 / frame_size
+
+vowels |>
+  group_by(stress) |>
+  summarise(min = min(duration),
+            max = max(duration))

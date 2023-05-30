@@ -1,192 +1,455 @@
-Linear mixed model fit by REML. t-tests use Satterthwaite's method ['lmerModLmerTest']
-Formula: f0 ~ as.character(reduction) + (1 | id)
+Data: vowels
+Models:
+model_pitch_null: f0 ~ 1 + (1 | id)
+model_pitch: f0 ~ reduction + (1 | id)
+                 npar    AIC  BIC  logLik deviance  Chisq Df Pr(>Chisq)
+model_pitch_null    3 7697.0 7711 -3845.5   7691.0                     
+model_pitch         5 7698.7 7722 -3844.4   7688.7 2.2963  2     0.3172
+Linear mixed model fit by maximum likelihood . t-tests use Satterthwaite's method ['lmerModLmerTest']
+Formula: f0 ~ reduction + (1 | id)
    Data: vowels
 
-REML criterion at convergence: 7672.6
+     AIC      BIC   logLik deviance df.resid 
+  7698.7   7722.0  -3844.4   7688.7      764 
 
 Scaled residuals: 
     Min      1Q  Median      3Q     Max 
--5.9032 -0.2905  0.0274  0.3183  7.8670 
+-5.9098 -0.2916  0.0267  0.3187  7.8766 
 
 Random effects:
  Groups   Name        Variance Std.Dev.
- id       (Intercept) 2920     54.04   
- Residual             1244     35.27   
-Number of obs: 769, groups:  id, 5
-
-Fixed effects:
-                         Estimate Std. Error      df t value Pr(>|t|)   
-(Intercept)               147.502     24.239   4.027   6.085  0.00361 **
-as.character(reduction)2    1.838      3.152 762.000   0.583  0.56003   
-as.character(reduction)3    4.571      3.018 762.000   1.514  0.13035   
----
-Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
-
-Correlation of Fixed Effects:
-            (Intr) as.()2
-as.chrct()2 -0.047       
-as.chrct()3 -0.049  0.374
-[1] "##################################################"
-Linear mixed model fit by REML. t-tests use Satterthwaite's method ['lmerModLmerTest']
-Formula: f0min ~ as.character(reduction) + (1 | id)
-   Data: vowels
-
-REML criterion at convergence: 7459.8
-
-Scaled residuals: 
-    Min      1Q  Median      3Q     Max 
--6.3858 -0.1877  0.0450  0.2675  9.1583 
-
-Random effects:
- Groups   Name        Variance Std.Dev.
- id       (Intercept) 2780.2   52.73   
- Residual              941.3   30.68   
-Number of obs: 769, groups:  id, 5
-
-Fixed effects:
-                         Estimate Std. Error      df t value Pr(>|t|)   
-(Intercept)               135.033     23.638   4.021   5.713  0.00457 **
-as.character(reduction)2    8.093      2.742 762.000   2.952  0.00325 **
-as.character(reduction)3    7.531      2.625 762.000   2.869  0.00424 **
----
-Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
-
-Correlation of Fixed Effects:
-            (Intr) as.()2
-as.chrct()2 -0.041       
-as.chrct()3 -0.043  0.374
-[1] "##################################################"
-Linear mixed model fit by REML. t-tests use Satterthwaite's method ['lmerModLmerTest']
-Formula: f0max ~ as.character(reduction) + (1 | id)
-   Data: vowels
-
-REML criterion at convergence: 7890.7
-
-Scaled residuals: 
-    Min      1Q  Median      3Q     Max 
--5.9776 -0.3951  0.0318  0.3355  6.5797 
-
-Random effects:
- Groups   Name        Variance Std.Dev.
- id       (Intercept) 3660     60.50   
- Residual             1655     40.68   
-Number of obs: 769, groups:  id, 5
-
-Fixed effects:
-                         Estimate Std. Error      df t value Pr(>|t|)   
-(Intercept)               164.151     27.142   4.029   6.048  0.00369 **
-as.character(reduction)2   -9.693      3.635 762.000  -2.667  0.00782 **
-as.character(reduction)3    3.822      3.480 762.000   1.098  0.27254   
----
-Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
-
-Correlation of Fixed Effects:
-            (Intr) as.()2
-as.chrct()2 -0.048       
-as.chrct()3 -0.050  0.374
-[1] "##################################################"
-Linear mixed model fit by REML. t-tests use Satterthwaite's method ['lmerModLmerTest']
-Formula: f0 ~ position + (1 | id)
-   Data: vowels
-
-REML criterion at convergence: 7644.9
-
-Scaled residuals: 
-    Min      1Q  Median      3Q     Max 
--5.7258 -0.3112  0.0390  0.3142  7.7686 
-
-Random effects:
- Groups   Name        Variance Std.Dev.
- id       (Intercept) 2919     54.03   
- Residual             1232     35.10   
+ id       (Intercept) 2334     48.31   
+ Residual             1241     35.23   
 Number of obs: 769, groups:  id, 5
 
 Fixed effects:
             Estimate Std. Error      df t value Pr(>|t|)   
-(Intercept)  156.921     24.346   4.100   6.445  0.00274 **
-positionI    -18.816      7.065 759.000  -2.663  0.00791 **
-positionO    -15.033      9.538 759.000  -1.576  0.11543   
-positionR     -5.538      4.041 759.000  -1.371  0.17093   
-positionS     -9.417      3.526 759.000  -2.671  0.00773 **
-positionT    -12.106      5.028 759.000  -2.408  0.01630 * 
+(Intercept)  147.502     21.689   5.041   6.801  0.00101 **
+reduction2     1.838      3.148 764.000   0.584  0.55951   
+reduction3     4.571      3.014 764.000   1.516  0.12983   
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
 Correlation of Fixed Effects:
-          (Intr) postnI postnO postnR postnS
-positionI -0.052                            
-positionO -0.038  0.131                     
-positionR -0.090  0.310  0.230              
-positionS -0.103  0.356  0.264  0.622       
-positionT -0.072  0.249  0.185  0.436  0.500
+           (Intr) rdctn2
+reduction2 -0.052       
+reduction3 -0.054  0.374
 [1] "##################################################"
-Linear mixed model fit by REML. t-tests use Satterthwaite's method ['lmerModLmerTest']
-Formula: f0min ~ position + (1 | id)
+Data: vowels
+Models:
+model_pitchmin_null: f0min ~ 1 + (1 | id)
+model_pitchmin: f0min ~ reduction + (1 | id)
+                    npar    AIC    BIC  logLik deviance  Chisq Df Pr(>Chisq)   
+model_pitchmin_null    3 7493.6 7507.5 -3743.8   7487.6                        
+model_pitchmin         5 7485.3 7508.5 -3737.7   7475.3 12.271  2   0.002165 **
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+Linear mixed model fit by maximum likelihood . t-tests use Satterthwaite's method ['lmerModLmerTest']
+Formula: f0min ~ reduction + (1 | id)
    Data: vowels
 
-REML criterion at convergence: 7436.5
+     AIC      BIC   logLik deviance df.resid 
+  7485.3   7508.5  -3737.7   7475.3      764 
 
 Scaled residuals: 
     Min      1Q  Median      3Q     Max 
--6.2606 -0.2098  0.0357  0.2847  9.0952 
+-6.3933 -0.1885  0.0445  0.2670  9.1695 
 
 Random effects:
  Groups   Name        Variance Std.Dev.
- id       (Intercept) 2780.2   52.73   
- Residual              936.3   30.60   
+ id       (Intercept) 2223.1   47.15   
+ Residual              938.8   30.64   
 Number of obs: 769, groups:  id, 5
 
 Fixed effects:
-            Estimate Std. Error       df t value Pr(>|t|)   
-(Intercept) 145.2404    23.7228   4.0796   6.122  0.00338 **
-positionI   -12.8035     6.1600 759.0000  -2.078  0.03800 * 
-positionO   -10.2981     8.3160 759.0000  -1.238  0.21597   
-positionR    -0.1705     3.5229 759.0001  -0.048  0.96140   
-positionS   -10.1179     3.0741 759.0001  -3.291  0.00104 **
-positionT    -7.0245     4.3841 759.0001  -1.602  0.10951   
+            Estimate Std. Error      df t value Pr(>|t|)   
+(Intercept)  135.033     21.150   5.033   6.385  0.00136 **
+reduction2     8.093      2.738 764.000   2.956  0.00321 **
+reduction3     7.531      2.622 764.000   2.872  0.00419 **
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
 Correlation of Fixed Effects:
-          (Intr) postnI postnO postnR postnS
-positionI -0.046                            
-positionO -0.034  0.131                     
-positionR -0.081  0.310  0.230              
-positionS -0.092  0.356  0.264  0.622       
-positionT -0.065  0.249  0.185  0.436  0.500
+           (Intr) rdctn2
+reduction2 -0.046       
+reduction3 -0.048  0.374
 [1] "##################################################"
-Linear mixed model fit by REML. t-tests use Satterthwaite's method ['lmerModLmerTest']
-Formula: f0max ~ position + (1 | id)
+Data: vowels
+Models:
+model_pitchmax_null: f0min ~ 1 + (1 | id)
+model_pitchmax: f0max ~ reduction + (1 | id)
+                    npar    AIC    BIC  logLik deviance Chisq Df Pr(>Chisq)
+model_pitchmax_null    3 7493.6 7507.5 -3743.8   7487.6                    
+model_pitchmax         5 7917.7 7940.9 -3953.8   7907.7     0  2          1
+Linear mixed model fit by maximum likelihood . t-tests use Satterthwaite's method ['lmerModLmerTest']
+Formula: f0max ~ reduction + (1 | id)
    Data: vowels
 
-REML criterion at convergence: 7850.8
+     AIC      BIC   logLik deviance df.resid 
+  7917.7   7940.9  -3953.8   7907.7      764 
 
 Scaled residuals: 
     Min      1Q  Median      3Q     Max 
--5.7202 -0.4168  0.0490  0.3692  6.4290 
+-5.9841 -0.3965  0.0329  0.3369  6.5877 
 
 Random effects:
  Groups   Name        Variance Std.Dev.
- id       (Intercept) 3659     60.49   
- Residual             1614     40.17   
+ id       (Intercept) 2926     54.09   
+ Residual             1650     40.62   
+Number of obs: 769, groups:  id, 5
+
+Fixed effects:
+            Estimate Std. Error      df t value Pr(>|t|)   
+(Intercept)  164.151     24.288   5.044   6.759  0.00104 **
+reduction2    -9.693      3.630 764.000  -2.670  0.00774 **
+reduction3     3.822      3.476 764.000   1.100  0.27189   
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Correlation of Fixed Effects:
+           (Intr) rdctn2
+reduction2 -0.053       
+reduction3 -0.056  0.374
+[1] "##################################################"
+Data: vowels
+Models:
+model_pitch_null: f0 ~ 1 + (1 | id)
+model_pitch_position: f0 ~ position + (1 | id)
+                     npar    AIC    BIC  logLik deviance  Chisq Df Pr(>Chisq)  
+model_pitch_null        3 7697.0 7711.0 -3845.5   7691.0                       
+model_pitch_position    8 7694.1 7731.2 -3839.0   7678.1 12.961  5    0.02375 *
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+Linear mixed model fit by maximum likelihood . t-tests use Satterthwaite's method ['lmerModLmerTest']
+Formula: f0 ~ position + (1 | id)
+   Data: vowels
+
+     AIC      BIC   logLik deviance df.resid 
+  7694.1   7731.2  -3839.0   7678.1      761 
+
+Scaled residuals: 
+    Min      1Q  Median      3Q     Max 
+-5.7436 -0.3110  0.0398  0.3145  7.7934 
+
+Random effects:
+ Groups   Name        Variance Std.Dev.
+ id       (Intercept) 2334     48.31   
+ Residual             1224     34.98   
+Number of obs: 769, groups:  id, 5
+
+Fixed effects:
+            Estimate Std. Error      df t value Pr(>|t|)   
+(Intercept)  147.504     21.687   5.042   6.802  0.00101 **
+positionI     -9.399      6.659 764.000  -1.412  0.15847   
+positionR      3.879      3.311 764.000   1.172  0.24173   
+positionT     -2.689      4.457 764.000  -0.603  0.54641   
+positionF      9.417      3.514 764.000   2.680  0.00753 **
+positionO     -5.616      9.226 764.000  -0.609  0.54292   
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Correlation of Fixed Effects:
+          (Intr) postnI postnR postnT postnF
+positionI -0.025                            
+positionR -0.049  0.161                     
+positionT -0.037  0.120  0.240              
+positionF -0.047  0.152  0.305  0.226       
+positionO -0.018  0.058  0.116  0.086  0.109
+[1] "##################################################"
+Data: vowels
+Models:
+model_pitchmin_null: f0min ~ 1 + (1 | id)
+model_pitchmin_position: f0min ~ position + (1 | id)
+                        npar    AIC    BIC  logLik deviance  Chisq Df Pr(>Chisq)   
+model_pitchmin_null        3 7493.6 7507.5 -3743.8   7487.6                        
+model_pitchmin_position    8 7484.3 7521.4 -3734.1   7468.3 19.325  5   0.001672 **
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+Linear mixed model fit by maximum likelihood . t-tests use Satterthwaite's method ['lmerModLmerTest']
+Formula: f0min ~ position + (1 | id)
+   Data: vowels
+
+     AIC      BIC   logLik deviance df.resid 
+  7484.3   7521.4  -3734.1   7468.3      761 
+
+Scaled residuals: 
+    Min      1Q  Median      3Q     Max 
+-6.2802 -0.2096  0.0352  0.2849  9.1243 
+
+Random effects:
+ Groups   Name        Variance Std.Dev.
+ id       (Intercept) 2223.0   47.15   
+ Residual              930.2   30.50   
+Number of obs: 769, groups:  id, 5
+
+Fixed effects:
+            Estimate Std. Error       df t value Pr(>|t|)    
+(Intercept) 135.1225    21.1492   5.0334   6.389  0.00136 ** 
+positionI    -2.6856     5.8053 764.0000  -0.463  0.64377    
+positionR     9.9473     2.8868 764.0000   3.446  0.00060 ***
+positionT     3.0934     3.8857 764.0000   0.796  0.42622    
+positionF    10.1180     3.0640 764.0001   3.302  0.00100 ** 
+positionO    -0.1803     8.0441 764.0000  -0.022  0.98213    
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Correlation of Fixed Effects:
+          (Intr) postnI postnR postnT postnF
+positionI -0.022                            
+positionR -0.044  0.161                     
+positionT -0.033  0.120  0.240              
+positionF -0.042  0.152  0.305  0.226       
+positionO -0.016  0.058  0.116  0.086  0.109
+[1] "##################################################"
+Data: vowels
+Models:
+model_pitchmax_null: f0min ~ 1 + (1 | id)
+model_pitchmax_position: f0max ~ position + (1 | id)
+                        npar    AIC    BIC  logLik deviance Chisq Df Pr(>Chisq)
+model_pitchmax_null        3 7493.6 7507.5 -3743.8   7487.6                    
+model_pitchmax_position    8 7901.5 7938.7 -3942.8   7885.5     0  5          1
+Linear mixed model fit by maximum likelihood . t-tests use Satterthwaite's method ['lmerModLmerTest']
+Formula: f0max ~ position + (1 | id)
+   Data: vowels
+
+     AIC      BIC   logLik deviance df.resid 
+  7901.5   7938.7  -3942.8   7885.5      761 
+
+Scaled residuals: 
+    Min      1Q  Median      3Q     Max 
+-5.7377 -0.4190  0.0484  0.3713  6.4495 
+
+Random effects:
+ Groups   Name        Variance Std.Dev.
+ id       (Intercept) 2925     54.08   
+ Residual             1603     40.04   
 Number of obs: 769, groups:  id, 5
 
 Fixed effects:
             Estimate Std. Error      df t value Pr(>|t|)    
-(Intercept)  177.369     27.265   4.104   6.505  0.00263 ** 
-positionI    -33.917      8.087 759.000  -4.194 3.06e-05 ***
-positionO    -29.285     10.917 759.000  -2.682  0.00747 ** 
-positionR    -20.910      4.625 759.000  -4.521 7.13e-06 ***
-positionS    -13.291      4.036 759.000  -3.293  0.00104 ** 
-positionT    -22.750      5.755 759.000  -3.953 8.45e-05 ***
+(Intercept)  164.078     24.283   5.044   6.757 0.001042 ** 
+positionI    -20.626      7.621 764.000  -2.706 0.006955 ** 
+positionR     -7.619      3.790 764.000  -2.010 0.044736 *  
+positionT     -9.459      5.101 764.000  -1.854 0.064084 .  
+positionF     13.291      4.022 764.000   3.304 0.000997 ***
+positionO    -15.994     10.560 764.000  -1.515 0.130307    
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Correlation of Data: vowels
+Models:
+model_duration_null: duration ~ 1 + (1 | id)
+model_duration: duration ~ reduction + (1 | id)
+                    npar     AIC     BIC logLik deviance  Chisq Df Pr(>Chisq)    
+model_duration_null    3 -2536.1 -2522.2 1271.0  -2542.1                         
+model_duration         5 -3090.5 -3067.3 1550.3  -3100.5 558.42  2  < 2.2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+Linear mixed model fit by maximum likelihood . t-tests use Satterthwaite's method ['lmerModLmerTest']
+Formula: duration ~ reduction + (1 | id)
+   Data: vowels
+
+     AIC      BIC   logLik deviance df.resid 
+ -3090.5  -3067.3   1550.3  -3100.5      764 
+
+Scaled residuals: 
+    Min      1Q  Median      3Q     Max 
+-3.0867 -0.5835 -0.1082  0.5718  4.7677 
+
+Random effects:
+ Groups   Name        Variance  Std.Dev.
+ id       (Intercept) 0.0003347 0.01829 
+ Residual             0.0010124 0.03182 
+Number of obs: 769, groups:  id, 5
+
+Fixed effects:
+              Estimate Std. Error         df t value Pr(>|t|)    
+(Intercept)   0.147798   0.008356   5.233251   17.69  7.2e-06 ***
+reduction2   -0.072829   0.002843 763.999684  -25.61  < 2e-16 ***
+reduction3   -0.058669   0.002723 764.000105  -21.55  < 2e-16 ***
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
 Correlation of Fixed Effects:
-          (Intr) postnI postnO postnR postnS
-positionI -0.053                            
-positionO -0.039  0.131                     
-positionR -0.092  0.310  0.230              
-positionS -0.106  0.356  0.264  0.622       
-positionT -0.074  0.249  0.185  0.436  0.500
-[1] "##################################################"
+           (Intr) rdctn2
+reduction2 -0.122       
+reduction3 -0.127  0.374
+Data: vowels
+Models:
+model_duration_null: duration ~ 1 + (1 | id)
+model_duration_position: duration ~ position + (1 | id)
+                        npar     AIC     BIC logLik deviance  Chisq Df Pr(>Chisq)    
+model_duration_null        3 -2536.1 -2522.2 1271.0  -2542.1                         
+model_duration_position    8 -3137.7 -3100.5 1576.8  -3153.7 611.58  5  < 2.2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+Linear mixed model fit by maximum likelihood . t-tests use Satterthwaite's method ['lmerModLmerTest']
+Formula: duration ~ position + (1 | id)
+   Data: vowels
+
+     AIC      BIC   logLik deviance df.resid 
+ -3137.7  -3100.5   1576.8  -3153.7      761 
+
+Scaled residuals: 
+    Min      1Q  Median      3Q     Max 
+-3.1827 -0.5560 -0.0975  0.5875  4.9496 
+
+Random effects:
+ Groups   Name        Variance  Std.Dev.
+ id       (Intercept) 0.0003339 0.01827 
+ Residual             0.0009444 0.03073 
+Number of obs: 769, groups:  id, 5
+
+Fixed effects:
+              Estimate Std. Error         df t value Pr(>|t|)    
+(Intercept)   0.147390   0.008337   5.224079   17.68 7.33e-06 ***
+positionI    -0.062400   0.005850 763.999705  -10.67  < 2e-16 ***
+positionR    -0.074243   0.002909 763.999705  -25.52  < 2e-16 ***
+positionT    -0.077855   0.003915 763.999705  -19.89  < 2e-16 ***
+positionF    -0.041331   0.003087 764.000446  -13.39  < 2e-16 ***
+positionO    -0.088227   0.008105 763.999705  -10.88  < 2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Correlation of Fixed Effects:
+          (Intr) postnI postnR postnT postnF
+positionI -0.056                            
+positionR -0.113  0.161                     
+positionT -0.084  0.120  0.240              
+positionF -0.106  0.152  0.305  0.226       
+positionO -0.041  0.058  0.116  0.086  0.109
+Data: vowels
+Models:
+model_rel_duration_null: rel_duration ~ 1 + (1 | id)
+model_rel_duration: rel_duration ~ reduction + (1 | id)
+                        npar      AIC      BIC logLik deviance  Chisq Df Pr(>Chisq)    
+model_rel_duration_null    3  -465.85  -451.92 235.93  -471.85                         
+model_rel_duration         5 -1202.57 -1179.35 606.29 -1212.57 740.72  2  < 2.2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+Linear mixed model fit by maximum likelihood . t-tests use Satterthwaite's method ['lmerModLmerTest']
+Formula: rel_duration ~ reduction + (1 | id)
+   Data: vowels
+
+     AIC      BIC   logLik deviance df.resid 
+ -1202.6  -1179.3    606.3  -1212.6      764 
+
+Scaled residuals: 
+    Min      1Q  Median      3Q     Max 
+-3.4296 -0.6200  0.0142  0.7204  3.5686 
+
+Random effects:
+ Groups   Name        Variance Std.Dev.
+ id       (Intercept) 0.0000   0.00    
+ Residual             0.0121   0.11    
+Number of obs: 769, groups:  id, 5
+
+Fixed effects:
+              Estimate Std. Error         df t value Pr(>|t|)    
+(Intercept)   0.607487   0.005879 769.000000  103.33   <2e-16 ***
+reduction2   -0.300775   0.009829 769.000000  -30.60   <2e-16 ***
+reduction3   -0.261189   0.009412 769.000000  -27.75   <2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Correlation of Fixed Effects:
+           (Intr) rdctn2
+reduction2 -0.598       
+reduction3 -0.625  0.374
+optimizer (nloptwrap) convergence code: 0 (OK)
+boundary (singular) fit: see help('isSingular')
+
+Data: vowels
+Models:
+model_rel_duration_null: rel_duration ~ 1 + (1 | id)
+model_rel_duration_position: rel_duration ~ position + (1 | id)
+                            npar      AIC      BIC logLik deviance  Chisq Df Pr(>Chisq)    
+model_rel_duration_null        3  -465.85  -451.92 235.93  -471.85                         
+model_rel_duration_position    8 -1218.59 -1181.43 617.30 -1234.59 762.74  5  < 2.2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+Linear mixed model fit by maximum likelihood . t-tests use Satterthwaite's method ['lmerModLmerTest']
+Formula: intensitymax ~ position + (1 | id)
+   Data: vowels
+
+     AIC      BIC   logLik deviance df.resid 
+  4210.9   4248.1  -2097.4   4194.9      761 
+
+Scaled residuals: 
+    Min      1Q  Median      3Q     Max 
+-3.6471 -0.5826 -0.0158  0.5969  2.8996 
+
+Random effects:
+ Groups   Name        Variance Std.Dev.
+ id       (Intercept) 44.71    6.687   
+ Residual             13.15    3.626   
+Number of obs: 769, groups:  id, 5
+
+Fixed effects:
+            Estimate Std. Error       df t value Pr(>|t|)    
+(Intercept)  69.2111     2.9968   5.0234  23.095 2.71e-06 ***
+positionI    -1.4570     0.6903 764.0000  -2.111   0.0351 *  
+positionR    -0.2332     0.3432 764.0000  -0.679   0.4971    
+positionT    -3.7553     0.4620 764.0000  -8.128 1.75e-15 ***
+positionF    -4.8131     0.3643 764.0000 -13.212  < 2e-16 ***
+positionO    -1.3482     0.9564 764.0000  -1.410   0.1591    
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Correlation of Fixed Effects:
+          (Intr) postnI postnR postnT postnF
+positionI -0.018                            
+positionR -0.037  0.161                     
+positionT -0.028  0.120  0.240              
+positionF -0.035  0.152  0.305  0.226       
+positionO -0.013  0.058  0.116  0.086  0.109
+# A tibble: 769 × 4
+# Groups:   id [5]
+   id       f1    f2    f3
+   <chr> <dbl> <dbl> <dbl>
+ 1 subj1  639. 1471. 2614.
+ 2 subj1  309. 1333. 2476.
+ 3 subj1  333. 1808. 2862.
+ 4 subj1  602. 1611. 3227.
+ 5 subj1  651. 1793. 2609.
+ 6 subj1  293. 1985. 2625.
+ 7 subj1  278. 2188. 2912.
+ 8 subj1  557. 1660. 3608.
+ 9 subj1  569. 1545. 2468.
+10 subj1  297. 1330. 2583.
+# ℹ 759 more rows
+# ℹ Use `print(n = ...)` to see more rows
+# A tibble: 2,307 × 3
+# Groups:   id [5]
+   id    formant value
+   <chr> <chr>   <dbl>
+ 1 subj1 f1       639.
+ 2 subj1 f2      1471.
+ 3 subj1 f3      2614.
+ 4 subj1 f1       309.
+ 5 subj1 f2      1333.
+ 6 subj1 f3      2476.
+ 7 subj1 f1       333.
+ 8 subj1 f2      1808.
+ 9 subj1 f3      2862.
+10 subj1 f1       602.
+# ℹ 2,297 more rows
+# ℹ Use `print(n = ...)` to see more rows
+# A tibble: 769 × 23
+# Groups:   id [5]
+   id    rec   word_duration numphoneme phoneme duration timef    f0 f0max f0min    f1    f2    f3 intensity
+   <chr> <chr>         <dbl>      <dbl> <chr>      <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl>     <dbl>
+ 1 subj1 1-1           0.262          1 ɐ         0.105  0.524  130.  136. 124.   639. 1471. 2614.      80.0
+ 2 subj1 1-1           0.262          4 o         0.0633 0.806  108.  111. 104.   309. 1333. 2476.      78.6
+ 3 subj1 1-1           0.262          6 ə̝         0.0504 0.965  101.  106.  90.3  333. 1808. 2862.      71.9
+ 4 subj1 1-1           0.262          8 ə         0.0438 1.14    -1    -1   -1    602. 1611. 3227.      69.6
+ 5 subj1 1-2           0.248          1 ɐ         0.0381 0.217   -1    -1   -1    651. 1793. 2609.      64.9
+ 6 subj1 1-2           0.248          4 ɐ         0.0326 0.424  116.  117. 114.   293. 1985. 2625.      76.6
+ 7 subj1 1-2           0.248          6 i         0.106  0.608  109.  136. 104.   278. 2188. 2912.      73.3
+ 8 subj1 1-2           0.248          8 ə         0.0717 0.849  103.  106.  97.1  557. 1660. 3608.      72.3
+ 9 subj1 10-1          0.212          3 a         0.140  0.373  112.  119. 102.   569. 1545. 2468.      80.0
+10 subj1 10-1          0.212          5 ə̝ᶷ        0.0720 0.619  102.  105.  94.6  297. 1330. 2583.      68.7
+# ℹ 759 more rows
+# ℹ 9 more variables: intensitymax <dbl>, reduction <fct>, position <ord>, manner <chr>, place <chr>,
+#   voicing <chr>, palatalization <chr>, stress <chr>, rel_duration <dbl>
+# ℹ Use `print(n = ...)` to see more rows
