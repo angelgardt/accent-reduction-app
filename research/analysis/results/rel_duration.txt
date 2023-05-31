@@ -1,0 +1,100 @@
+Data: vowels
+Models:
+model_rel_duration_null: rel_duration ~ 1 + (1 | id)
+model_rel_duration: rel_duration ~ reduction + (1 | id)
+                        npar      AIC      BIC logLik deviance  Chisq Df Pr(>Chisq)
+model_rel_duration_null    3  -465.85  -451.92 235.93  -471.85                     
+model_rel_duration         5 -1202.57 -1179.35 606.29 -1212.57 740.72  2  < 2.2e-16
+                           
+model_rel_duration_null    
+model_rel_duration      ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+Linear mixed model fit by maximum likelihood . t-tests use Satterthwaite's method [
+lmerModLmerTest]
+Formula: rel_duration ~ reduction + (1 | id)
+   Data: vowels
+
+     AIC      BIC   logLik deviance df.resid 
+ -1202.6  -1179.3    606.3  -1212.6      764 
+
+Scaled residuals: 
+    Min      1Q  Median      3Q     Max 
+-3.4296 -0.6200  0.0142  0.7204  3.5686 
+
+Random effects:
+ Groups   Name        Variance Std.Dev.
+ id       (Intercept) 0.0000   0.00    
+ Residual             0.0121   0.11    
+Number of obs: 769, groups:  id, 5
+
+Fixed effects:
+              Estimate Std. Error         df t value Pr(>|t|)    
+(Intercept)   0.607487   0.005879 769.000000  103.33   <2e-16 ***
+reduction2   -0.300775   0.009829 769.000000  -30.60   <2e-16 ***
+reduction3   -0.261189   0.009412 769.000000  -27.75   <2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Correlation of Fixed Effects:
+           (Intr) rdctn2
+reduction2 -0.598       
+reduction3 -0.625  0.374
+optimizer (nloptwrap) convergence code: 0 (OK)
+boundary (singular) fit: see help('isSingular')
+
+[1] 0.6183403
+[1] "##################################################"
+Data: vowels
+Models:
+model_rel_duration_null: rel_duration ~ 1 + (1 | id)
+model_rel_duration_position: rel_duration ~ position + (1 | id)
+                            npar      AIC      BIC logLik deviance  Chisq Df
+model_rel_duration_null        3  -465.85  -451.92 235.93  -471.85          
+model_rel_duration_position    8 -1218.59 -1181.43 617.30 -1234.59 762.74  5
+                            Pr(>Chisq)    
+model_rel_duration_null                   
+model_rel_duration_position  < 2.2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+Linear mixed model fit by maximum likelihood . t-tests use Satterthwaite's method [
+lmerModLmerTest]
+Formula: rel_duration ~ position + (1 | id)
+   Data: vowels
+
+     AIC      BIC   logLik deviance df.resid 
+ -1218.6  -1181.4    617.3  -1234.6      761 
+
+Scaled residuals: 
+    Min      1Q  Median      3Q     Max 
+-3.4634 -0.5962  0.0218  0.6712  3.6356 
+
+Random effects:
+ Groups   Name        Variance Std.Dev.
+ id       (Intercept) 0.00000  0.0000  
+ Residual             0.01176  0.1084  
+Number of obs: 769, groups:  id, 5
+
+Fixed effects:
+              Estimate Std. Error         df t value Pr(>|t|)    
+(Intercept)   0.605793   0.005838 769.000000  103.77   <2e-16 ***
+positionI    -0.284869   0.020639 769.000000  -13.80   <2e-16 ***
+positionR    -0.301665   0.010263 769.000000  -29.39   <2e-16 ***
+positionT    -0.307211   0.013814 769.000000  -22.24   <2e-16 ***
+positionF    -0.204602   0.010893 769.000000  -18.78   <2e-16 ***
+positionO    -0.403554   0.028598 769.000000  -14.11   <2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Correlation of Fixed Effects:
+          (Intr) postnI postnR postnT postnF
+positionI -0.283                            
+positionR -0.569  0.161                     
+positionT -0.423  0.120  0.240              
+positionF -0.536  0.152  0.305  0.226       
+positionO -0.204  0.058  0.116  0.086  0.109
+optimizer (nloptwrap) convergence code: 0 (OK)
+boundary (singular) fit: see help('isSingular')
+
+[1] 0.6291141
+[1] "##################################################"

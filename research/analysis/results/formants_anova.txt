@@ -1,0 +1,89 @@
+Analysis of Variance Table
+
+             Df  Pillai approx F num Df den Df    Pr(>F)    
+(Intercept)   1 0.97555  15041.7      2    754 < 2.2e-16 ***
+phoneme      13 1.01585     59.9     26   1510 < 2.2e-16 ***
+Residuals   755                                             
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+[1] "##################################################"
+
+Call:
+lm(formula = f1 ~ phoneme, data = vowels)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-462.25  -62.79   -4.26   61.03  834.43 
+
+Coefficients:
+            Estimate Std. Error t value Pr(>|t|)    
+(Intercept)   745.86      11.58  64.411  < 2e-16 ***
+phonemeɐ     -141.66      15.94  -8.887  < 2e-16 ***
+phonemee     -272.59      18.00 -15.143  < 2e-16 ***
+phonemeə     -183.37      15.01 -12.217  < 2e-16 ***
+phonemeə̝     -318.76      16.19 -19.687  < 2e-16 ***
+phonemeəᶷ    -316.70      49.13  -6.446 2.04e-10 ***
+phonemeə̝ᶷ    -331.46      49.13  -6.747 3.01e-11 ***
+phonemei     -433.70      16.91 -25.643  < 2e-16 ***
+phonemeɪ     -347.11      16.91 -20.523  < 2e-16 ***
+phonemeɨ     -381.32      49.13  -7.762 2.72e-14 ***
+phonemeɨ̞     -269.72      49.13  -5.490 5.49e-08 ***
+phonemeo     -235.63      15.94 -14.783  < 2e-16 ***
+phonemeu     -351.57      22.67 -15.507  < 2e-16 ***
+phonemeʊ     -336.03      26.53 -12.665  < 2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 106.8 on 755 degrees of freedom
+Multiple R-squared:  0.5664,	Adjusted R-squared:  0.5589 
+F-statistic: 75.85 on 13 and 755 DF,  p-value: < 2.2e-16
+
+Analysis of Variance Table
+
+Response: f1
+           Df   Sum Sq Mean Sq F value    Pr(>F)    
+phoneme    13 11238969  864536  75.854 < 2.2e-16 ***
+Residuals 755  8605060   11397                      
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+[1] "##################################################"
+
+Call:
+lm(formula = f2 ~ phoneme, data = vowels)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-1050.34  -246.13   -44.76   204.00  1561.17 
+
+Coefficients:
+            Estimate Std. Error t value Pr(>|t|)    
+(Intercept)  1358.18      40.55  33.498  < 2e-16 ***
+phonemeɐ       98.84      55.81   1.771   0.0770 .  
+phonemee      717.15      63.03  11.378  < 2e-16 ***
+phonemeə       70.88      52.55   1.349   0.1778    
+phonemeə̝      617.79      56.69  10.897  < 2e-16 ***
+phonemeəᶷ    -352.70     172.02  -2.050   0.0407 *  
+phonemeə̝ᶷ      66.33     172.02   0.386   0.6999    
+phonemei     1106.83      59.22  18.690  < 2e-16 ***
+phonemeɪ      635.04      59.22  10.723  < 2e-16 ***
+phonemeɨ      431.48     172.02   2.508   0.0123 *  
+phonemeɨ̞       52.10     172.02   0.303   0.7621    
+phonemeo     -339.72      55.81  -6.087 1.83e-09 ***
+phonemeu      -65.80      79.38  -0.829   0.4074    
+phonemeʊ      -78.69      92.90  -0.847   0.3973    
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 373.8 on 755 degrees of freedom
+Multiple R-squared:  0.5752,	Adjusted R-squared:  0.5679 
+F-statistic: 78.63 on 13 and 755 DF,  p-value: < 2.2e-16
+
+Analysis of Variance Table
+
+Response: f2
+           Df    Sum Sq  Mean Sq F value    Pr(>F)    
+phoneme    13 142832415 10987109  78.628 < 2.2e-16 ***
+Residuals 755 105500393   139736                      
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+[1] "##################################################"

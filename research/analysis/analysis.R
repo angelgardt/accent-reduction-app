@@ -2,7 +2,11 @@ library(tidyverse)
 theme_set(theme_bw())
 library(lme4)
 library(lmerTest)
-library(contrast)
+# library(contrast)
+
+r2 <- function(model, y, data) {
+  1 - sum((data[[y]] - predict(model, data))^2) / sum((data[[y]] - mean(data[[y]]))^2)
+}
 
 # filter vowels
 read_csv("features.csv") -> features
@@ -91,6 +95,8 @@ vowels |>
   summarise(word_duration = sum(duration)) |>
   right_join(vowels, by = c("rec", "id")) |>
   mutate(rel_duration = duration / word_duration) -> vowels
+
+vowels |> filter(rel_duration < 1) |> summarise(max(rel_duration))
 
 # plot absolute duration of vowels different reduction
 vowels |>
@@ -198,18 +204,26 @@ model_rel_duration_position <- lmer(rel_duration ~ position + (1|id),
 anova(model_rel_duration_null, model_rel_duration_position)
 summary(model_intensitymax_position)
 
-sink("results/duration_lmer.csv")
+sink("results/duration_lmer.txt")
 anova(model_duration_null, model_duration)
-summary(model_duration); print("##################################################")
+summary(model_duration)
+r2(model_duration, "duration", vowels)
+print("##################################################")
 anova(model_duration_null, model_duration_position)
-summary(model_duration_position); print("##################################################")
+summary(model_duration_position)
+r2(model_duration_position, "duration", vowels)
+print("##################################################")
 sink()
 
-sink("results/rel_duration.csv")
+sink("results/rel_duration.txt")
 anova(model_rel_duration_null, model_rel_duration)
-summary(model_rel_duration); print("##################################################")
+summary(model_rel_duration)
+r2(model_rel_duration, "rel_duration", vowels)
+print("##################################################")
 anova(model_rel_duration_null, model_rel_duration_position)
-summary(model_intensitymax_position); print("##################################################")
+summary(model_rel_duration_position)
+r2(model_rel_duration_position, "rel_duration", vowels)
+print("##################################################")
 sink()
 
 
@@ -281,7 +295,8 @@ summary(model_intensity)
 anova(model_intensity_null, model_intensity)
 
 model_intensity_position <- lmer(intensity ~ position + (1|id),
-                        data = vowels, REML = FALSE)
+                        data = vowels, REML = FALSE,
+                        contrasts = list(position="contr.treatment"))
 summary(model_intensity_position)
 
 model_intensitymax_null <- lmer(intensitymax ~ 1 + (1|id),
@@ -297,16 +312,35 @@ model_intensitymax_position <- lmer(intensitymax ~ position + (1|id),
                                  contrasts = list(position="contr.treatment"))
 summary(model_intensitymax_position)
 
+TukeyHSD(aov(intensitymax ~ position,
+             data = vowels))$position |>
+  as_tibble(rownames = "pairs") |>
+  write_csv("intentisy_position_pairwise.csv")
+
+
+TukeyHSD(aov(intensitymax ~ position,
+             data = vowels))$position |>
+  as_tibble(rownames = "pairs") |>
+  write_csv("intentisymax_position_pairwise.csv")
+
 ## save results
 sink("results/intensity_lmer.txt")
 anova(model_intensity_null, model_intensity)
-summary(model_intensity); print("##################################################")
+summary(model_intensity)
+r2(model_intensity, "intensity", vowels)
+print("##################################################")
 anova(model_intensity_null, model_intensity_position)
-summary(model_intensity_position); print("##################################################")
+summary(model_intensity_position)
+r2(model_intensity_position, "intensity", vowels)
+print("##################################################")
 anova(model_intensitymax_null, model_intensitymax)
-summary(model_intensitymax); print("##################################################")
+summary(model_intensitymax)
+r2(model_intensitymax, "intensitymax", vowels)
+print("##################################################")
 anova(model_intensitymax_null, model_intensitymax_position)
-summary(model_intensitymax_position); print("##################################################")
+summary(model_intensitymax_position)
+r2(model_intensitymax_position, "intensitymax", vowels)
+print("##################################################")
 sink()
 
 
@@ -374,7 +408,7 @@ model_pitch_null <- lmer(f0 ~ 1 + (1|id),
                     data = vowels, REML = FALSE)
 model_pitchmin_null <- lmer(f0min ~ 1 + (1|id),
                          data = vowels, REML = FALSE)
-model_pitchmax_null <- lmer(f0min ~ 1 + (1|id),
+model_pitchmax_null <- lmer(f0max ~ 1 + (1|id),
                          data = vowels, REML = FALSE)
 
 model_pitch <- lmer(f0 ~ reduction + (1|id),
@@ -410,19 +444,34 @@ model_pitchmax_position <- lmer(f0max ~ position + (1|id),
 anova(model_pitchmax_null, model_pitchmax_position)
 summary(model_pitchmax_position)
 
+
+
+
 sink("results/pitch_lmer.txt")
 anova(model_pitch_null, model_pitch)
-summary(model_pitch); print("##################################################")
+summary(model_pitch)
+r2(model_pitch, "f0", vowels)
+print("##################################################")
 anova(model_pitchmin_null, model_pitchmin)
-summary(model_pitchmin); print("##################################################")
+summary(model_pitchmin)
+r2(model_pitchmin, "f0min", vowels)
+print("##################################################")
 anova(model_pitchmax_null, model_pitchmax)
-summary(model_pitchmax); print("##################################################")
+summary(model_pitchmax)
+r2(model_pitchmax, "f0max", vowels)
+print("##################################################")
 anova(model_pitch_null, model_pitch_position)
-summary(model_pitch_position); print("##################################################")
+summary(model_pitch_position)
+r2(model_pitch_position, "f0", vowels)
+print("##################################################")
 anova(model_pitchmin_null, model_pitchmin_position)
-summary(model_pitchmin_position); print("##################################################")
+summary(model_pitchmin_position)
+r2(model_pitchmin_position, "f0min", vowels)
+print("##################################################")
 anova(model_pitchmax_null, model_pitchmax_position)
-summary(model_pitchmax_position); print("##################################################")
+summary(model_pitchmax_position)
+r2(model_pitchmax_position, "f0max", vowels)
+print("##################################################")
 sink()
 
 
@@ -509,10 +558,38 @@ vowels |>
   ) |>
   write_csv("results/formants_overall.csv")
 
+model_formants <- lmer(cbind(f1, f2) ~ phoneme + (1|id),
+                                data = vowels, REML = FALSE)
+model_formants <- lm(cbind(f1, f2) ~ phoneme,
+                     data = vowels)
+anova(model_formants)
 
+model_formant1 <- lm(f1 ~ phoneme,
+                     data = vowels)
+summary(model_formant1)
+anova(model_formant1)
+TukeyHSD(
+  aov(f1 ~ phoneme,
+    data = vowels)
+)$phoneme |> as_tibble(rownames = "pairs") -> first_formant
 
+model_formant2 <- lm(f2 ~ phoneme,
+                     data = vowels)
+summary(model_formant2)
+anova(model_formant2)
+TukeyHSD(
+  aov(f2 ~ phoneme,
+      data = vowels)
+)$phoneme |> as_tibble(rownames = "pairs") -> second_formant
 
+first_formant |> write_csv("results/first_formant.csv")
+second_formant |> write_csv("results/second_formant.csv")
 
-
-
+sink("results/formants_anova.txt")
+anova(model_formants); print("##################################################")
+summary(model_formant1)
+anova(model_formant1); print("##################################################")
+summary(model_formant2)
+anova(model_formant2); print("##################################################")
+sink()
 

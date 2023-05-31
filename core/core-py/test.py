@@ -5,10 +5,10 @@ import numpy as np
 import csv
 
 # for linux
-# base_folder = "/home/angelgardt/accent-reduction-app/data/recs/v1/subj1/homographs_audio"
+base_folder = "/home/angelgardt/accent-reduction-app/data/recs/subj10/audio"
 
 # for mac
-base_folder = "/Users/antonangelgardt/accent-reduction-app/data/recs/v1/subj3/homographs_audio"
+# base_folder = "/Users/antonangelgardt/accent-reduction-app/data/recs/subj6/audio"
 
 subj = re.findall("subj\d+", base_folder)[0]
 files = os.listdir(base_folder)
