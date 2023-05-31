@@ -13,6 +13,8 @@ read_csv("features.csv") -> features
 
 # filter vowels
 features |>
+  mutate(position = ifelse(reduction == 1, "S", position),
+         phoneme = ifelse(phoneme == "ə̝ᶷ", "əᶷ", phoneme)) |>
   filter(reduction %in% 1:3) |>
   mutate(reduction = factor(reduction),
          position = factor(position,
@@ -21,7 +23,7 @@ features |>
 
 # features$position |> unique()
 
-pd <- position_dodge(.3)
+pd <- position_dodge(.4)
 pos_col <- c("S" = "red3",
              "I" = "orange3",
              "R" = "purple3",
@@ -35,15 +37,16 @@ vowels |>
   ggplot(aes(reduction, duration)) +
   stat_summary(fun.data = mean_cl_boot,
                geom = "errorbar",
-               width = .3) +
+               width = .1) +
   stat_summary(fun = mean,
                geom = "point",
                size = 2) +
   labs(x = "Степень редукции",
-       y = "Абсолютная длительность, с")
+       y = "Абсолютная длительность, с") +
+  scale_x_discrete(labels = c("Отсутствует", "Первая", "Вторая"))
 ggsave("graphs/absolute_duration.jpeg",
        width = 210,
-       height = 170,
+       height = 90,
        units = "mm")
 
 
@@ -67,7 +70,7 @@ vowels |>
   ggplot(aes(reduction, duration, color = position)) +
   stat_summary(fun.data = mean_cl_boot,
                geom = "errorbar",
-               width = .3,
+               width = .2,
                position = pd) +
   stat_summary(fun = mean,
                geom = "point",
@@ -77,10 +80,11 @@ vowels |>
        y = "Абсолютная длительность, c",
        color = "Позиция в слове") +
   theme(legend.position = "bottom") +
-  scale_color_manual(values = pos_col)
+  scale_color_manual(values = pos_col) +
+  scale_x_discrete(labels = c("Отсутствует", "Первая", "Вторая"))
 ggsave("graphs/absolute_duration_position.jpeg",
        width = 210,
-       height = 170,
+       height = 160,
        units = "mm")
 
 
@@ -98,18 +102,22 @@ vowels |>
 
 vowels |> filter(rel_duration < 1) |> summarise(max(rel_duration))
 
-# plot absolute duration of vowels different reduction
+# plot relative duration of vowels different reduction
 vowels |>
   ggplot(aes(reduction, rel_duration)) +
   stat_summary(fun.data = mean_cl_boot,
                geom = "errorbar",
-               width = .3) +
+               width = .1) +
   stat_summary(fun = mean,
                geom = "point",
                size = 2) +
   labs(x = "Степень редукции",
-       y = "Относительная длительность")
-ggsave("graphs/relative_duration.jpeg", width = 210, units = "mm")
+       y = "Относительная длительность") +
+  scale_x_discrete(labels = c("Отсутствует", "Первая", "Вторая"))
+ggsave("graphs/relative_duration.jpeg",
+       width = 210,
+       height = 90,
+       units = "mm")
 
 # add vowel position in the word to prev graph
 vowels |>
@@ -126,10 +134,11 @@ vowels |>
        y = "Относительная длительность",
        color = "Позиция в слове") +
   theme(legend.position = "bottom") +
-  scale_color_manual(values = pos_col)
+  scale_color_manual(values = pos_col) +
+  scale_x_discrete(labels = c("Отсутствует", "Первая", "Вторая"))
 ggsave("graphs/relative_duration_position.jpeg",
        width = 210,
-       height = 170,
+       height = 160,
        units = "mm")
 
 ## descriptives
@@ -182,27 +191,27 @@ model_duration_null <- lmer(duration ~ 1 + (1|id),
                              data = vowels, REML = FALSE)
 model_duration <- lmer(duration ~ reduction + (1|id),
                         data = vowels, REML = FALSE)
-anova(model_duration_null, model_duration)
-summary(model_duration)
+#anova(model_duration_null, model_duration)
+#summary(model_duration)
 
 model_duration_position <- lmer(duration ~ position + (1|id),
                                  data = vowels, REML = FALSE,
                                 contrasts = list(position="contr.treatment"))
-anova(model_duration_null, model_duration_position)
-summary(model_duration_position)
+#anova(model_duration_null, model_duration_position)
+#summary(model_duration_position)
 
 model_rel_duration_null <- lmer(rel_duration ~ 1 + (1|id),
                                 data = vowels, REML = FALSE)
 model_rel_duration <- lmer(rel_duration ~ reduction + (1|id),
                            data = vowels, REML = FALSE)
-anova(model_rel_duration_null, model_rel_duration)
-summary(model_rel_duration)
+#anova(model_rel_duration_null, model_rel_duration)
+#summary(model_rel_duration)
 
 model_rel_duration_position <- lmer(rel_duration ~ position + (1|id),
                                     data = vowels, REML = FALSE,
                                     contrasts = list(position="contr.treatment"))
-anova(model_rel_duration_null, model_rel_duration_position)
-summary(model_intensitymax_position)
+#anova(model_rel_duration_null, model_rel_duration_position)
+#summary(model_intensitymax_position)
 
 sink("results/duration_lmer.txt")
 anova(model_duration_null, model_duration)
@@ -237,7 +246,7 @@ vowels |>
   ggplot(aes(reduction, value)) +
   stat_summary(fun.data = mean_cl_boot,
                geom = "errorbar",
-               width = .3,
+               width = .1,
                position = pd) +
   stat_summary(fun = mean,
                geom = "point",
@@ -250,10 +259,11 @@ vowels |>
                )
              )) +
   labs(x = "Степень редукции",
-       y = "Интенсивность, дБ")
+       y = "Интенсивность, дБ") +
+  scale_x_discrete(labels = c("Отсутствует", "Первая", "Вторая"))
 ggsave("graphs/intensity.jpeg",
        width = 210,
-       height = 170,
+       height = 160,
        units = "mm")
 
 # add vowel position in the word to previous graph
@@ -279,38 +289,38 @@ vowels |>
        y = "Интенсивность, дБ",
        color = "Позиция в слове") +
   theme(legend.position = "bottom") +
-  scale_color_manual(values = pos_col)
+  scale_color_manual(values = pos_col) +
+  scale_x_discrete(labels = c("Отсутствует", "Первая", "Вторая"))
+
 ggsave("graphs/intensity_position.jpeg",
        width = 210,
-       height = 170,
+       height = 160,
        units = "mm")
 
 ## do statistics
 model_intensity_null <- lmer(intensity ~ 1 + (1|id),
                         data = vowels, REML = FALSE)
 model_intensity <- lmer(intensity ~ reduction + (1|id),
-                        data = vowels, REML = FALSE,
-                        contrasts = list(position="contr.treatment"))
-summary(model_intensity)
-anova(model_intensity_null, model_intensity)
+                        data = vowels, REML = FALSE)
+#summary(model_intensity)
+#anova(model_intensity_null, model_intensity)
 
 model_intensity_position <- lmer(intensity ~ position + (1|id),
                         data = vowels, REML = FALSE,
                         contrasts = list(position="contr.treatment"))
-summary(model_intensity_position)
+#summary(model_intensity_position)
 
 model_intensitymax_null <- lmer(intensitymax ~ 1 + (1|id),
-                           data = vowels, REML = FALSE,
-                           contrasts = list(position="contr.treatment"))
+                           data = vowels, REML = FALSE)
 
 model_intensitymax <- lmer(intensitymax ~ reduction + (1|id),
                         data = vowels, REML = FALSE)
-summary(model_intensitymax)
+#summary(model_intensitymax)
 
 model_intensitymax_position <- lmer(intensitymax ~ position + (1|id),
                                  data = vowels, REML = FALSE,
                                  contrasts = list(position="contr.treatment"))
-summary(model_intensitymax_position)
+#summary(model_intensitymax_position)
 
 TukeyHSD(aov(intensitymax ~ position,
              data = vowels))$position |>
@@ -367,10 +377,12 @@ vowels |>
                  f0min = "Минимальная частота\nосновного тона"
                ))) +
   labs(x = "Степень редукции",
-       y = "Частота, Гц")
+       y = "Частота, Гц") +
+  scale_x_discrete(labels = c("Отсутствует", "Первая", "Вторая"))
+
 ggsave("graphs/pitch.jpeg",
        width = 210,
-       height = 170,
+       height = 160,
        units = "mm")
 
 # add vowel position in the word to previous graph
@@ -400,7 +412,7 @@ vowels |>
   scale_color_manual(values = pos_col)
 ggsave("graphs/pitch_position.jpeg",
        width = 210,
-       height = 170,
+       height = 160,
        units = "mm")
 
 ## do statistics
@@ -413,36 +425,36 @@ model_pitchmax_null <- lmer(f0max ~ 1 + (1|id),
 
 model_pitch <- lmer(f0 ~ reduction + (1|id),
                         data = vowels, REML = FALSE)
-anova(model_pitch_null, model_pitch)
-summary(model_pitch)
+#anova(model_pitch_null, model_pitch)
+#summary(model_pitch)
 
 model_pitchmin <- lmer(f0min ~ reduction + (1|id),
                     data = vowels, REML = FALSE)
-anova(model_pitchmin_null, model_pitchmin)
-summary(model_pitchmin)
+#anova(model_pitchmin_null, model_pitchmin)
+#summary(model_pitchmin)
 
 model_pitchmax <- lmer(f0max ~ reduction + (1|id),
                        data = vowels, REML = FALSE)
-anova(model_pitchmax_null, model_pitchmax)
-summary(model_pitchmax)
+#anova(model_pitchmax_null, model_pitchmax)
+#summary(model_pitchmax)
 
 model_pitch_position <- lmer(f0 ~ position + (1|id),
                     data = vowels, REML = FALSE,
                     contrasts = list(position="contr.treatment"))
-anova(model_pitch_null, model_pitch_position)
-summary(model_pitch_position)
+#anova(model_pitch_null, model_pitch_position)
+#summary(model_pitch_position)
 
 model_pitchmin_position <- lmer(f0min ~ position + (1|id),
                        data = vowels, REML = FALSE,
                        contrasts = list(position="contr.treatment"))
-anova(model_pitchmin_null, model_pitchmin_position)
-summary(model_pitchmin_position)
+#anova(model_pitchmin_null, model_pitchmin_position)
+#summary(model_pitchmin_position)
 
 model_pitchmax_position <- lmer(f0max ~ position + (1|id),
                        data = vowels, REML = FALSE,
                        contrasts = list(position="contr.treatment"))
-anova(model_pitchmax_null, model_pitchmax_position)
-summary(model_pitchmax_position)
+#anova(model_pitchmax_null, model_pitchmax_position)
+#summary(model_pitchmax_position)
 
 
 
@@ -494,7 +506,10 @@ vowels |>
   geom_point(data = centroids, aes(f2, f1, color = phoneme), size = 2) +
   scale_x_reverse(position = "top") +
   scale_y_reverse(position="right") +
-  facet_wrap(~ reduction) +
+  facet_grid(reduction ~ .,
+             labeller = labeller(reduction = c("1" = "Редукция отсутствует",
+                                               "2" = "Первая степень редукции",
+                                               "3" = "Вторая степень редукции"))) +
   guides(color = "none") +
   scale_color_manual(
     values = c(
@@ -510,17 +525,18 @@ vowels |>
       "əᶷ" = "slateblue2",
       "i" = "red3",
       "ɪ" = "gold3",
-      "ə̝" = "gray40",
-      "ə̝ᶷ" = "lightblue4"
+      "ə̝" = "gray40"
     )) +
   labs(x = "F2",
        y = "F1")
 ggsave("graphs/formants.jpeg",
        width = 210,
-       height = 170,
+       height = 210*1.3,
        units = "mm")
 
 vowels$phoneme |> table()
+
+
 
 
 
