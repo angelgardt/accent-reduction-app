@@ -40,19 +40,22 @@ def vowel_duration(I,
     j = 0
 
     while j < len(intervals):
-        if intervals[j] < -gap:
-            if l > 0:
-                duration_frames.append(l)
-                l = 0
+        try:
+            if intervals[j] < -gap:
+                if l > 0:
+                    duration_frames.append(l)
+                    l = 0
+                    j += 1
+                else:
+                    j += 1
+            elif intervals[j] > 0:
+                l = intervals[j]
                 j += 1
-            else:
-                j += 1
-        elif intervals[j] > 0:
-            l = intervals[j]
-            j += 1
-        elif intervals[j] >= -gap and intervals[j] < 0:
-            l += intervals[j+1]
-            j += 2
+            elif intervals[j] >= -gap and intervals[j] < 0:
+                l += intervals[j+1]
+                j += 2
+        except IndexError:
+            break
     
     duration_time = np.array(duration_frames) * frame
     duration_time_ = duration_time[duration_time > min_duration]
