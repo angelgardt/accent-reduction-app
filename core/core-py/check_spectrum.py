@@ -3,7 +3,8 @@ import librosa
 import numpy as np
 import matplotlib.pyplot as plt
 
-base_folder = "/Users/antonangelgardt/accent-reduction-app/data/recs/subj2/audio/"
+#base_folder = "/Users/antonangelgardt/accent-reduction-app/data/recs/subj2/audio/"
+base_folder = "/home/angelgardt/accent-reduction-app/data/recs/subj2/audio/"
 file = "1-1.wav"
 
 signal, sr = load_audio(file, base_folder)
@@ -18,5 +19,9 @@ I, freqs = stft(signal, sr, frame, d_step)
 
 I.shape
 freqs.shape
+sum(freqs < 5000)
+
 
 plot_spectrum(I, sr, frame, d_step, xlim=None, ylim=(0, 5000), figsize=(10, 5))
+
+np.savetxt("I.csv", I, delimiter=",")
