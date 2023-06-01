@@ -17,7 +17,8 @@ def core_stressed_vowel(file,
                         suffix,
                         sr=None,
                         mono=None,
-                        save=True):
+                        save=True,
+                        output_folder = None):
 
     signal, sr = load_audio(file = file,
                             base_folder=base_folder,
@@ -39,6 +40,7 @@ def core_stressed_vowel(file,
                             gap=gap,
                             min_duration=min_duration,
                             save=save,
+                            output_folder=output_folder,
                             suffix=suffix)
 
     return stressed_vowel(duration)

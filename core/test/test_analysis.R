@@ -44,3 +44,9 @@ vowels |>
   group_by(stress) |>
   summarise(min = min(duration),
             max = max(duration))
+
+
+
+
+path <- "../../"
+read_csv(paste0(path, "params.csv"))

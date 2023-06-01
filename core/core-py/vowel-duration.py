@@ -2,20 +2,23 @@ def vowel_duration(I,
                    freqs,
                    frame,
                    low_crop = 0,
-                   high_crop = 27,
+                   high_crop = 5000,
                    intensity_threshold = -20,
                    low_freq = 200,
                    high_freq = 1000, 
                    gap = 3,
                    min_duration = 0.02,
                    save=True,
+                   output_folder=None,
                    suffix=None):
     
-    I_ = I[low_crop:high_crop, :]
+    low_bin = sum(freqs < low_crop)
+    high_bin = sum(freqs < high_crop)
+    I_ = I[low_bin:high_bin, :]
     max_intensity_bins = np.argmax(I_, axis=0)
     max_intensity_freqs = np.array([freqs[i] for i in max_intensity_bins])
     bounded_freqs = (max_intensity_freqs > low_freq) & (max_intensity_freqs < high_freq)
-    bounded_intensity = np.max(I_[(freqs[low_crop:high_crop] > low_freq) & (freqs[low_crop:high_crop] < high_freq), :], axis=0) > intensity_threshold
+    bounded_intensity = np.max(I_[(freqs[low_bin:high_bin] > low_freq) & (freqs[low_bin:high_bin] < high_freq), :], axis=0) > intensity_threshold
     bounded_frames = bounded_freqs & bounded_intensity
 
     intervals = []
@@ -58,9 +61,12 @@ def vowel_duration(I,
         if suffix is None:
             print("Please specify suffix")
             return None
-        np.savetxt("I"+suffix+".csv", I_, delimiter=",")
-        # np.savetxt("freqs"+suffix+".csv", freqs, delimiter=",")
-        np.savetxt("bounded-frames"+suffix+".csv", bounded_frames, delimiter=",")
-        np.savetxt("duration-time"+suffix+".csv", duration_time_, delimiter=",")
+        if output_folder is None:
+            print("Please specify output folder")
+            return None
+        np.savetxt(output_folder+"I"+suffix+".csv", I_, delimiter=",")
+        # np.savetxt(output_folder+"freqs"+suffix+".csv", freqs, delimiter=",")
+        np.savetxt(output_folder+"bounded-frames"+suffix+".csv", bounded_frames, delimiter=",")
+        np.savetxt(output_folder+"duration-time"+suffix+".csv", duration_time_, delimiter=",")
     
     return duration_time_
