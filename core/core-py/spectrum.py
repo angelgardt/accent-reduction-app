@@ -2,17 +2,18 @@ import librosa
 import numpy as np
 import matplotlib.pyplot as plt
 
-def stft(signal, sr, frame):
+def stft(signal, sr, frame, d_step):
     
     """
     This function takes three arguments:
     signal is an array containing sequence of samples of a signal
     sr is the smaple rate
     frame is the frame size in seconds
+    d_step is a denominator for hop size calculation
     """
 
     frame_size = int(round(frame * sr)) # frame size in samples
-    frame_step = frame / 4 # step in seconds
+    frame_step = frame / d_step # step in seconds
     hop_size = int(frame_step * sr) # hop size in samples
 
     # get spectral matrix
@@ -27,9 +28,9 @@ def stft(signal, sr, frame):
 
     return (I, freqs)
 
-def plot_spectrum(I, sr, frame, xlim=None, ylim=None, figsize=(10, 5)):
+def plot_spectrum(I, sr, frame, d_step, xlim=None, ylim=None, figsize=(10, 5)):
     
-    frame_step = frame / 4 # step in seconds
+    frame_step = frame / d_step # step in seconds
     hop_size = int(frame_step * sr) # hop size in samples
 
     plt.figure(figsize=figsize)

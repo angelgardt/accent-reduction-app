@@ -15,6 +15,7 @@ files = os.listdir(base_folder)
 
 
 frame = 0.005
+d_step = 8
 low_crop = 1
 high_crop = 15
 intensity_threshold = -30
@@ -30,6 +31,7 @@ for file in files:
     r = core_stressed_vowel(file,
                             base_folder,
                             frame,
+                            d_step,
                             low_crop,
                             high_crop,
                             intensity_threshold,

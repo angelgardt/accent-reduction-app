@@ -6,6 +6,7 @@ import numpy as np
 def core_stressed_vowel(file,
                         base_folder,
                         frame,
+                        d_step,
                         low_crop,
                         high_crop,
                         intensity_threshold,
@@ -23,7 +24,7 @@ def core_stressed_vowel(file,
                             sr=sr,
                             mono=mono)
 
-    I, freqs = stft(signal, sr, frame=frame)
+    I, freqs = stft(signal, sr, frame=frame, d_step=d_step)
 
     # plot_spectrum(I, sr, frame=.005, ylim=[0, 5000])
 
