@@ -297,6 +297,51 @@ ggsave("graphs/intensity_position.jpeg",
        height = 160,
        units = "mm")
 
+vowels |>
+  group_by(position) |>
+  summarise(mean = mean(intensity) |> round(3),
+            sd = sd(intensity) |> round(2),
+            median = median(intensity) |> round(3),
+            min = min(intensity) |> round(3),
+            max = max(intensity) |> round(3),
+            skew = moments::skewness(intensity) |> round(2),
+            kurt = moments::kurtosis(intensity) |> round(2)) |>
+  write_csv("results/intensity_position_desc.csv")
+
+vowels |>
+  group_by(reduction) |>
+  summarise(mean = mean(intensity) |> round(3),
+            sd = sd(intensity) |> round(2),
+            median = median(intensity) |> round(3),
+            min = min(intensity) |> round(3),
+            max = max(intensity) |> round(3),
+            skew = moments::skewness(intensity) |> round(2),
+            kurt = moments::kurtosis(intensity) |> round(2)) |>
+  write_csv("results/intensity_reduction_desc.csv")
+
+vowels |>
+  group_by(position) |>
+  summarise(mean = mean(intensitymax) |> round(3),
+            sd = sd(intensitymax) |> round(2),
+            median = median(intensitymax) |> round(3),
+            min = min(intensitymax) |> round(3),
+            max = max(intensitymax) |> round(3),
+            skew = moments::skewness(intensitymax) |> round(2),
+            kurt = moments::kurtosis(intensitymax) |> round(2)) |>
+  write_csv("results/intensitymax_position_desc.csv")
+
+vowels |>
+  group_by(reduction) |>
+  summarise(mean = mean(intensitymax) |> round(3),
+            sd = sd(intensitymax) |> round(2),
+            median = median(intensitymax) |> round(3),
+            min = min(intensitymax) |> round(3),
+            max = max(intensitymax) |> round(3),
+            skew = moments::skewness(intensitymax) |> round(2),
+            kurt = moments::kurtosis(intensitymax) |> round(2)) |>
+  write_csv("results/intensitymax_reduction_desc.csv")
+
+
 ## do statistics
 model_intensity_null <- lmer(intensity ~ 1 + (1|id),
                         data = vowels, REML = FALSE)
@@ -414,6 +459,82 @@ ggsave("graphs/pitch_position.jpeg",
        width = 210,
        height = 160,
        units = "mm")
+
+vowels |>
+  group_by(reduction) |>
+  filter(f0 != -1) %>%
+  summarise(mean = mean(f0) |> round(3),
+            sd = sd(f0) |> round(2),
+            median = median(f0) |> round(3),
+            min = min(f0) |> round(3),
+            max = max(f0) |> round(3),
+            skew = moments::skewness(f0) |> round(2),
+            kurt = moments::kurtosis(f0) |> round(2)) |>
+  write_csv("results/pitch_reduction_desc.csv")
+
+vowels |>
+  group_by(position) |>
+  filter(f0 != -1) %>%
+  summarise(mean = mean(f0) |> round(3),
+            sd = sd(f0) |> round(2),
+            median = median(f0) |> round(3),
+            min = min(f0) |> round(3),
+            max = max(f0) |> round(3),
+            skew = moments::skewness(f0) |> round(2),
+            kurt = moments::kurtosis(f0) |> round(2)) |>
+  write_csv("results/pitch_position_desc.csv")
+
+vowels |>
+  group_by(reduction) |>
+  filter(f0min != -1) %>%
+  summarise(mean = mean(f0min) |> round(3),
+            sd = sd(f0min) |> round(2),
+            median = median(f0min) |> round(3),
+            min = min(f0min) |> round(3),
+            max = max(f0min) |> round(3),
+            skew = moments::skewness(f0min) |> round(2),
+            kurt = moments::kurtosis(f0min) |> round(2)) |>
+  write_csv("results/pitchmin_reduction_desc.csv")
+
+vowels |>
+  group_by(position) |>
+  filter(f0min != -1) %>%
+  summarise(mean = mean(f0min) |> round(3),
+            sd = sd(f0min) |> round(2),
+            median = median(f0min) |> round(3),
+            min = min(f0min) |> round(3),
+            max = max(f0min) |> round(3),
+            skew = moments::skewness(f0min) |> round(2),
+            kurt = moments::kurtosis(f0min) |> round(2)) |>
+  write_csv("results/pitchmin_position_desc.csv")
+
+vowels |>
+  group_by(reduction) |>
+  filter(f0max != -1) %>%
+  summarise(mean = mean(f0max) |> round(3),
+            sd = sd(f0max) |> round(2),
+            median = median(f0max) |> round(3),
+            min = min(f0max) |> round(3),
+            max = max(f0max) |> round(3),
+            skew = moments::skewness(f0max) |> round(2),
+            kurt = moments::kurtosis(f0max) |> round(2)) |>
+  write_csv("results/pitchmax_reduction_desc.csv")
+
+vowels |>
+  group_by(position) |>
+  filter(f0max != -1) %>%
+  summarise(mean = mean(f0max) |> round(3),
+            sd = sd(f0max) |> round(2),
+            median = median(f0max) |> round(3),
+            min = min(f0max) |> round(3),
+            max = max(f0max) |> round(3),
+            skew = moments::skewness(f0max) |> round(2),
+            kurt = moments::kurtosis(f0max) |> round(2)) |>
+  write_csv("results/pitchmax_position_desc.csv")
+
+
+
+
 
 ## do statistics
 model_pitch_null <- lmer(f0 ~ 1 + (1|id),
@@ -600,6 +721,11 @@ TukeyHSD(
 
 first_formant |> write_csv("results/first_formant.csv")
 second_formant |> write_csv("results/second_formant.csv")
+
+sink("results/formants_pairwise.txt")
+pairwise.t.test(x = vowels$f1, g = vowels$phoneme)
+pairwise.t.test(x = vowels$f2, g = vowels$phoneme)
+sink()
 
 sink("results/formants_anova.txt")
 anova(model_formants); print("##################################################")
