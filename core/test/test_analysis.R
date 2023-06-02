@@ -1,9 +1,9 @@
 library(tidyverse)
 
-path <- "results/test5"
+path <- "results/"
 
-results_paths <- dir(path)[dir(path) |> str_detect("results")]
-features <- read_csv("../../research/r-scripts/features.csv")
+results_paths <- dir(path)[dir(path) |> str_detect("test\\d+")]
+features <- read_csv("../../research/analysis/features.csv")
 
 features |>
   filter(stress %in% 1:3) |>
@@ -14,16 +14,18 @@ features |>
 results <- tibble()
 
 for (i in 1:length(results_paths)) {
-
-  read_csv(paste0(path, "/", results_paths[i]), col_names = FALSE) |>
-    rename("rec" = X1,
-           "res" = X2) |>
-    mutate(rec = str_extract(rec, "\\d+-\\d"),
-           subj = results_paths[i] |> str_extract("subj\\d+")) |>
-    full_join(stressed, by = "rec") |>
-    mutate(correct = ifelse(res == stressed, TRUE, FALSE)) |>
-    bind_rows(results) -> results
-
+  files_results <- dir(paste0(path, results_paths[i]))
+  for (j in 2:length(files_results)) {
+    read_csv(paste0(path, results_paths[i], "/", files_results[j]), col_names = FALSE) |>
+      rename("rec" = X1,
+             "res" = X2) |>
+      mutate(rec = str_extract(rec, "\\d+-\\d"),
+             subj = files_results[j] |> str_extract("subj\\d+"),
+             params = i) |>
+      full_join(stressed, by = "rec") |>
+      mutate(correct = ifelse(res == stressed, TRUE, FALSE)) |>
+      bind_rows(results) -> results
+  }
 }
 
 mean(results$correct, na.rm = TRUE)
