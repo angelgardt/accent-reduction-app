@@ -208,7 +208,7 @@ gaps = [3, 5, 7, 9]
 # minimal vowel duration, seconds
 min_durations = [0.005, 0.01, 0.03, 0.05, 0.07]
 
-len(frames) * len(d_steps) * len(intensity_thresholds) * len(gaps) * len(min_durations) * len(low_crops) * len(high_crops)
+len(frames) * len(d_steps) * len(intensity_thresholds) * len(gaps) * len(min_durations) * len(low_crops) * len(high_crops) * len(low_freqs)
 
 # set subjs
 subjs = ["subj1", "subj2", "subj3", "subj4", "subj5"]
@@ -221,7 +221,7 @@ input_folder = "/home/angelgardt/accent-reduction-app/data/recs/"
 
 for high_crop in high_crops:
     for low_crop in low_crops:
-        for i in range(low_freqs):
+        for i in range(len(low_freqs)):
             low_freq = low_freqs[i]
             high_freq = high_freqs[i]
             for frame in frames:
