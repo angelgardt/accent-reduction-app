@@ -1,14 +1,14 @@
 library(tidyverse)
 theme_set(theme_minimal())
 
-path <- "results/test1"
+path <- "results/test_pics/"
 
 bounded_frames <- dir(path)[dir(path) |> str_detect("bounded-frames")]
 I <- dir(path)[dir(path) |> str_detect("I")]
 
 for (i in 1:length(I)) {
-  I_ <- read_csv(paste0("data/", I[i]), col_names = FALSE)
-  bf <- read_csv(paste0("data/", bounded_frames[i]), col_names = FALSE)
+  I_ <- read_csv(paste0(path, I[i]), col_names = FALSE)
+  bf <- read_csv(paste0(path, bounded_frames[i]), col_names = FALSE)
   rec <-I[i] |> str_extract("\\d+-\\d")
 
   I_ |>
@@ -24,5 +24,5 @@ for (i in 1:length(I)) {
     scale_fill_continuous(high = "gray10", low = "gray90") +
     scale_color_manual(values = c("0" = "red", "1" = "green")) +
     guides(fill = "none", color = "none")
-  ggsave(paste0(path, rec, ".jpeg"), width = 30, height = 20, units = "cm")
+  ggsave(paste0(path, bounded_frames[i], ".jpeg"), width = 30, height = 20, units = "cm")
 }

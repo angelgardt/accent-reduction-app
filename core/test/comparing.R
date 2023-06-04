@@ -11,7 +11,7 @@ read_sheet("https://docs.google.com/spreadsheets/d/1wYrxpNZVWv58IGZbC7p-bQV8_gXo
 ### VOWEL DETECTOR -----
 
 vowel_detector <- tibble()
-folder <- "results/vowel-detector/"
+folder <- "vowel-detector/"
 subjs <- dir(folder)
 annotations <- dir(paste0(folder, subjs[1]))
 
@@ -38,7 +38,7 @@ vowel_detector_res$correct |> mean()
 
 ### ALGORITHM -----
 
-path <- "results/test-test1"
+path <- "results/test_check"
 
 results_paths <- dir(path)[dir(path) |> str_detect("results")]
 
