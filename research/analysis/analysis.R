@@ -48,6 +48,10 @@ ggsave("graphs/absolute_duration.jpeg",
        width = 210,
        height = 90,
        units = "mm")
+ggsave("graphs/absolute_duration_slide.jpeg",
+       width = 100,
+       height = 100,
+       units = "mm")
 
 
 # add id to prev graph
@@ -86,6 +90,10 @@ ggsave("graphs/absolute_duration_position.jpeg",
        width = 210,
        height = 160,
        units = "mm")
+ggsave("graphs/absolute_duration_position_slide.jpeg",
+       width = 120,
+       height = 120,
+       units = "mm")
 
 
 # check is there any bugs
@@ -118,6 +126,10 @@ ggsave("graphs/relative_duration.jpeg",
        width = 210,
        height = 90,
        units = "mm")
+ggsave("graphs/relative_duration_slide.jpeg",
+       width = 100,
+       height = 100,
+       units = "mm")
 
 # add vowel position in the word to prev graph
 vowels |>
@@ -139,6 +151,10 @@ vowels |>
 ggsave("graphs/relative_duration_position.jpeg",
        width = 210,
        height = 160,
+       units = "mm")
+ggsave("graphs/relative_duration_position_slide.jpeg",
+       width = 120,
+       height = 120,
        units = "mm")
 
 ## descriptives
@@ -430,6 +446,8 @@ ggsave("graphs/pitch.jpeg",
        height = 160,
        units = "mm")
 
+
+
 # add vowel position in the word to previous graph
 vowels |>
   select(reduction, f0, f0max, f0min, rec, position) |>
@@ -654,6 +672,12 @@ ggsave("graphs/formants.jpeg",
        width = 210,
        height = 210*1.3,
        units = "mm")
+
+ggsave("graphs/formants_slides.jpeg",
+       width = 200,
+       height = 200,
+       units = "mm")
+
 
 vowels$phoneme |> table()
 
