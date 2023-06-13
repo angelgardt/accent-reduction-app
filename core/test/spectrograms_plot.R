@@ -27,16 +27,20 @@ for (i in 1:length(I)) {
   ggsave(paste0(path, bounded_frames[i], ".jpeg"), width = 30, height = 20, units = "cm")
 }
 
-I1_ <- read_csv(paste0(path, "I_subj3_29-1.csv"), col_names = FALSE) |> mutate(id = "3_29-1",
-                                                                               freq_bin = rownames(I1_))
-I2_ <- read_csv(paste0(path, "I_subj3_29-2.csv"), col_names = FALSE) |> mutate(id = "3_29-2",
-                                                                               freq_bin = rownames(I2_))
-bf1 <- read_csv(paste0(path, "bounded-frames_subj3_29-1.csv"), col_names = FALSE) |> mutate(id = "3_29-1",
-                                                                                            frame = rownames(bf1) |>
-                                                                                              as.integer())
-bf2 <- read_csv(paste0(path, "bounded-frames_subj3_29-2.csv"), col_names = FALSE) |> mutate(id = "3_29-2",
-                                                                                            frame = rownames(bf2) |>
-                                                                                              as.integer())
+I1_ <- read_csv(paste0(path, "I_subj3_29-1.csv"), col_names = FALSE)
+I1_ |> mutate(id = "3_29-1",
+              freq_bin = rownames(I1_)) -> I1_
+I2_ <- read_csv(paste0(path, "I_subj3_29-2.csv"), col_names = FALSE)
+I2_ |> mutate(id = "3_29-2",
+              freq_bin = rownames(I2_)) -> I2_
+bf1 <- read_csv(paste0(path, "bounded-frames_subj3_29-1.csv"), col_names = FALSE)
+bf1 |> mutate(id = "3_29-1",
+              frame = rownames(bf1) |>
+                as.integer()) -> bf1
+bf2 <- read_csv(paste0(path, "bounded-frames_subj3_29-2.csv"), col_names = FALSE)
+bf2 |> mutate(id = "3_29-2",
+              frame = rownames(bf2) |>
+                as.integer()) -> bf2
 
 I1_ |> bind_rows(I2_) -> I_
 bf1 |> bind_rows(bf2) -> bf
@@ -58,7 +62,7 @@ I_ |>
   facet_wrap(~ id,
              ncol = 1,
              labeller = labeller(id = c("3_29-1" = "/'parəm/",
-                                        "3_29-2" = "/'pɐ'rom/"))) +
+                                        "3_29-2" = "/pɐ'rom/"))) +
   scale_fill_continuous(high = "gray10", low = "gray90") +
   scale_color_manual(values = c("0" = "red", "1" = "green")) +
   guides(fill = "none", color = "none") +
@@ -100,8 +104,8 @@ I_ |>
              size = 1) +
   facet_wrap(~ id,
              ncol = 1,
-             labeller = labeller(id = c("4_16-1" = "/'atləs/",
-                                        "4_16-2" = "/'ɐt'las/"))) +
+             labeller = labeller(id = c("4_16-1" = "/'atɫəs/",
+                                        "4_16-2" = "/ɐt'ɫas/"))) +
   scale_fill_continuous(high = "gray10", low = "gray90") +
   scale_color_manual(values = c("0" = "red", "1" = "green")) +
   guides(fill = "none", color = "none") +
